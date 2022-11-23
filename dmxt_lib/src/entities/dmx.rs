@@ -1,13 +1,21 @@
 //Lowest level
 
+use crate::dmx_serial::DMXSerial;
+
 pub struct Universe {
     id: u32,
-    pub name: String,
-    pub description: String,
-    pub channels: Vec<Channel>,
+    name: String,
+    description: String,
+    serial: DMXSerial,
 }
 
-pub struct Channel {
-    id: u8,
-    value: u8,
+impl Universe {
+    pub fn new(id: u32, name: String, description: String, serial: DMXSerial) -> Universe {
+        Universe {
+            id,
+            name,
+            description,
+            serial,
+        }
+    }
 }

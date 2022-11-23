@@ -12,7 +12,6 @@ mod tests {
     fn check_imports() {
         use crate::entities::dmx::Universe;
         use crate::entities::interface::Interface;
-
         use crate::dmx_serial::DMXSerial;
     }
 }

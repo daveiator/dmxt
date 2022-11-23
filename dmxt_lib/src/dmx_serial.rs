@@ -47,7 +47,7 @@ impl DMXSerial {
         Ok(dmx)
     }
 
-    pub fn set_channel(&mut self, channel: usize, value: u8) -> Result<(), String> {
+    pub fn set_channel(&mut self, channel: usize, value: u8) -> Result<(), DMXError> {
         check_valid_channel(channel)?;
         if self.channels.len() < channel {
             self.channels.resize(channel, 0);
@@ -57,10 +57,10 @@ impl DMXSerial {
         Ok(())
     }
 
-    pub fn get_channel(&self, channel: usize) -> Result<u8, String> {
+    pub fn get_channel(&self, channel: usize) -> Result<u8, DMXError> {
         check_valid_channel(channel)?;
         if channel > self.channels.len() {
-            return Err(format!("Channel {} is not initialized", channel));
+            return Err(DMXError::NotInitialized);
         }
         Ok(self.channels[channel - 1])
     }
@@ -69,7 +69,7 @@ impl DMXSerial {
         &self.channels
     }
 
-    pub fn set_max_channels(&mut self, max_channels: usize) -> Result<(), String> {
+    pub fn set_max_channels(&mut self, max_channels: usize) -> Result<(), DMXError> {
         check_valid_channel(max_channels)?;
         self.channels.resize(max_channels, 0);
         Ok(())
@@ -105,17 +105,50 @@ impl DMXSerialAgent {
 
     pub fn send_dmx_packet(&mut self) -> serial::Result<()> {
         self.send_break()?;
-        let channels = &self.channels;
-        //self.send_data(&channels)?;
+        thread::sleep(SERIAL_TOTAL_BREAK);
+        let mut prefixed_data = self.channels.clone();
+        prefixed_data.insert(0, 0x00); // DMX start code
+        self.send_data(&prefixed_data)?;
         Ok(())
     }
 }
 
 
 
-fn check_valid_channel(channel: usize) -> Result<(), String> {
-    if channel > 512 {
-        return Err(format!("Channel {} is out of range", channel));
+fn check_valid_channel(channel: usize) -> Result<(), DMXError> {
+    if channel > 512 || channel < 1 {
+        return Err(DMXError::NotValid);
     }
     Ok(())
+}
+
+
+#[derive(Debug)]
+pub enum DMXError {
+    NotInitialized,
+    NotValid,
+    Other(String)
+}
+
+impl std::fmt::Display for DMXError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match *self {
+            DMXError::NotInitialized => write!(f, "DMX channel is not initialized"),
+            DMXError::NotValid => write!(f, "Channel is not valid ( < 1 or > 512"),
+            DMXError::Other(ref s) => write!(f, "{}", s),
+        }
+    }
+} 
+
+
+impl From<String> for DMXError {
+    fn from(err: String) -> DMXError {
+        DMXError::Other(err)
+    }
+}
+
+impl std::error::Error for DMXError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        None //I'm laz
+    }
 }

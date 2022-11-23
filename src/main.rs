@@ -7,4 +7,5 @@ fn main() {
         sleep(std::time::Duration::from_millis(1000));
         dmx.set_channel(512, 255).unwrap();
         sleep(std::time::Duration::from_millis(1000));
+        dmx.set_max_channels(2).unwrap();
 }
