@@ -1,3 +1,5 @@
+use super::threads::shared::Lock;
+
 use serial;
 use serial::SerialPort;
 
@@ -8,6 +10,7 @@ use std::io::Write;
 use std::ffi::OsStr;
 use std::thread;
 use std::sync::mpsc;
+
 
 const BREAK_SETTINGS: serial::PortSettings = serial::PortSettings {
     baud_rate: serial::Baud57600,
@@ -30,28 +33,28 @@ const SERIAL_TOTAL_BREAK: time::Duration = time::Duration::new(0, 136_000);
 
 
 pub struct DMXSerial {
-    channels: Vec<u8>,
-    tx: mpsc::Sender<Vec<u8>>,
+    channels: Lock<Vec<u8>>,
+    tx: mpsc::Sender<()>,
+
 }
 
 impl DMXSerial {
     pub fn open<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerial, serial::Error> {
         let (tx, rx) = mpsc::channel();
-        let dmx = DMXSerial { channels: vec![0], tx}; // channel default created here!
-        let mut agent = DMXSerialAgent::init(port, dmx.get_channels())?;
+        let dmx = DMXSerial { channels: Lock::new(vec![0]), tx}; // channel default created here!
+        let mut agent = DMXSerialAgent::init(port)?;
+        let channel_view = dmx.channels.read_only();
         let _ = thread::spawn(move || {
                 thread_priority::set_current_thread_priority(thread_priority::ThreadPriority::Max).unwrap();
                 loop {
-                    agent.channels = match rx.try_recv() {
-                        Ok(channels) => channels,
-                        Err(mpsc::TryRecvError::Disconnected) => {
-                            println!("DMXSerialAgent: Channel disconnected!");
-                            break;
-                        },
-                        Err(_) => agent.channels,
-                    };
-                    agent.send_dmx_packet().unwrap();
-                    // println!("{:?}", agent.channels); //Debug
+                    match rx.try_recv() {
+                        Err(mpsc::TryRecvError::Disconnected) => break,
+                        _ => {
+                            let channels = channel_view.read().unwrap().clone();
+                            println!("{:?}", channels); //Debug
+                            agent.send_dmx_packet(channels).unwrap();
+                        }
+                    }
                 }
         });
         Ok(dmx)
@@ -59,46 +62,45 @@ impl DMXSerial {
 
     pub fn set_channel(&mut self, channel: usize, value: u8) -> Result<(), DMXError> {
         check_valid_channel(channel)?;
-        if self.channels.len() < channel {
-            self.channels.resize(channel, 0);
+        let mut channels = self.channels.write().unwrap();
+        if channels.len() < channel {
+            channels.resize(channel, 0);
         }
-        self.channels[channel - 1] = value;
-        self.tx.send(self.channels.clone()).unwrap();
+        channels[channel - 1] = value;
         Ok(())
     }
 
     pub fn get_channel(&self, channel: usize) -> Result<u8, DMXError> {
         check_valid_channel(channel)?;
-        if channel > self.channels.len() {
+        let channels = self.channels.read().unwrap();
+        if channel > channels.len() {
             return Err(DMXError::NotInitialized);
         }
-        Ok(self.channels[channel - 1])
+        Ok(channels[channel - 1])
     }
 
-    pub fn get_channels(&self) -> &Vec<u8> {
-        &self.channels
+    pub fn get_channels(&self) -> Vec<u8> {
+        self.channels.read().unwrap().to_vec()
     }
 
     pub fn set_max_channels(&mut self, max_channels: usize) -> Result<(), DMXError> {
         check_valid_channel(max_channels)?;
-        self.channels.resize(max_channels, 0);
-        self.tx.send(self.channels.clone()).unwrap();
+        let mut channels = self.channels.write().unwrap();
+        channels.resize(max_channels, 0);
         Ok(())
     }
 }
 
 struct DMXSerialAgent {
     port: serial::SystemPort,
-    pub channels: Vec<u8>,
 }
 
 impl DMXSerialAgent {
 
-    pub fn init<T: AsRef<OsStr> + ?Sized>(port: &T, parent_channels: &Vec<u8>) -> Result<DMXSerialAgent, serial::Error> {
+    pub fn init<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerialAgent, serial::Error> {
         let port = serial::SystemPort::open(port)?;
         let dmx = DMXSerialAgent {
             port: port,
-            channels: parent_channels.clone(),
         };
         Ok(dmx)
     }
@@ -114,10 +116,10 @@ impl DMXSerialAgent {
         Ok(())
     }
 
-    pub fn send_dmx_packet(&mut self) -> serial::Result<()> {
+    pub fn send_dmx_packet(&mut self, channels: Vec<u8>) -> serial::Result<()> {
         self.send_break()?;
         thread::sleep(SERIAL_TOTAL_BREAK);
-        let mut prefixed_data = self.channels.clone();
+        let mut prefixed_data = channels;
         prefixed_data.insert(0, 0x00); // DMX start code
         self.send_data(&prefixed_data)?;
         Ok(())

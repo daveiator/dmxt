@@ -1,5 +1,6 @@
 pub mod entities;
 pub mod dmx_serial;
+pub mod threads;
 
 #[cfg(test)]
 mod tests {

@@ -25,7 +25,7 @@ struct MyApp {
 impl Default for MyApp {
     fn default() -> Self {
         Self {
-            channels: vec![ChannelComponent::new(1, 0).unwrap(); 24],
+            channels: vec![ChannelComponent::new(1, 0).unwrap(); 1],
             interface_path: String::new(),
             dmx: Option::None,
             connection_error: false,
@@ -77,21 +77,28 @@ impl eframe::App for MyApp {
             }
             ui.separator();
             ui.add_space(10.0);
-            ui.style_mut().spacing.slider_width = 350.0;
-            egui::ScrollArea::horizontal().always_show_scroll(true).auto_shrink([false, true]).show(ui, |ui| {
-                ui.horizontal(|ui| {
-                    for channel in self.channels.iter_mut() {
-                        channel.update(ui);
-                        match dmx_serial::check_valid_channel(channel.channel) {
-                            Ok(_) => {
-                                // self.dmx.as_ref().unwrap().set_channel(channel.channel, channel.value);
-                            },
-                            Err(e) => {
-                                println!("Error: {}", e);
-                                channel.channel = 1;
-                            }
+            ui.group(|ui| {
+                ui.style_mut().spacing.slider_width = ui.available_height() - 72.0;
+                egui::ScrollArea::horizontal().always_show_scroll(true).auto_shrink([false, true]).show(ui, |ui| {
+                    ui.horizontal(|ui| {
+                        for channel in self.channels.iter_mut() {
+                                ui.group(|ui| {
+                                channel.update(ui);
+                                match dmx_serial::check_valid_channel(channel.channel) {
+                                    Ok(_) => {
+                                        self.dmx.as_mut().unwrap().set_channel(channel.channel, channel.value).unwrap();
+                                    },
+                                    Err(e) => {
+                                        println!("Error: {}", e);
+                                        channel.channel = 1;
+                                    }
+                                }
+                            });
                         }
-                    }
+                    });
+                });
+                ui.horizontal(|ui| {
+                    ui.add(egui::Button::new("New Channel"));
                 });
             });
         });
