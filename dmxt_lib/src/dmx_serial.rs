@@ -51,7 +51,7 @@ impl DMXSerial {
                         Err(mpsc::TryRecvError::Disconnected) => break,
                         _ => {
                             let channels = channel_view.read().unwrap().clone();
-                            println!("{:?}", channels); //Debug
+                            // println!("{:?}", channels); //Debug
                             agent.send_dmx_packet(channels).unwrap();
                         }
                     }
@@ -120,24 +120,33 @@ impl DMXSerialAgent {
 
 
 pub fn check_valid_channel(channel: usize) -> Result<(), DMXError> {
-    if channel > 512 || channel < 1 {
-        return Err(DMXError::NotValid);
+    if channel > 512 {
+        return Err(DMXError::NotValid(DMXErrorValidity::TooHigh));
+    }
+    if channel < 1 {
+        return Err(DMXError::NotValid(DMXErrorValidity::TooLow));
     }
     Ok(())
 }
 
 #[derive(Debug)]
 pub enum DMXError {
-    NotInitialized,
-    NotValid,
-    Other(String)
+    AlreadyInUse,
+    NotValid(DMXErrorValidity),
+    NoChannels,
+    Other(String) 
 }
 
 impl std::fmt::Display for DMXError {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        match *self {
-            DMXError::NotInitialized => write!(f, "DMX channel is not initialized"),
-            DMXError::NotValid => write!(f, "Channel is not valid ( < 1 or > 512"),
+        match self {
+            DMXError::AlreadyInUse => write!(f, "DMX channel already in use"),
+            DMXError::NotValid(exact) => match exact {
+                DMXErrorValidity::TooHigh => write!(f, "DMX channel too high"),
+                DMXErrorValidity::TooLow => write!(f, "DMX channel too low"),
+                _ => write!(f, "Channel is not valid ( < 1 or > 512"),
+            },
+            DMXError::NoChannels => write!(f, "No channels available"),
             DMXError::Other(ref s) => write!(f, "{}", s),
         }
     }
@@ -154,4 +163,10 @@ impl std::error::Error for DMXError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         None //I'm laz
     }
+}
+
+#[derive(Debug)]
+pub enum DMXErrorValidity {
+    TooHigh,
+    TooLow,
 }
