@@ -50,9 +50,8 @@ impl eframe::App for MyApp {
                 if self.dmx.is_none() {
                     if ui.button("Connect").clicked() {
                         match DMXSerial::open(&self.interface_path) {
-                            Ok(mut dmx) => {
+                            Ok(dmx) => {
                                 self.connection_error = false;
-                                dmx.set_max_channels(512).unwrap();
                                 self.dmx = Option::Some(dmx);
                                 self.status = egui::RichText::new("Connected!").color(egui::Color32::GREEN);
                             }

@@ -33,7 +33,7 @@ const SERIAL_TOTAL_BREAK: time::Duration = time::Duration::new(0, 136_000);
 
 
 pub struct DMXSerial {
-    channels: Lock<Vec<u8>>,
+    channels: Lock<[u8; 512]>, //512 channels
     tx: mpsc::Sender<()>,
 
 }
@@ -41,7 +41,7 @@ pub struct DMXSerial {
 impl DMXSerial {
     pub fn open<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerial, serial::Error> {
         let (tx, rx) = mpsc::channel();
-        let dmx = DMXSerial { channels: Lock::new(vec![0]), tx}; // channel default created here!
+        let dmx = DMXSerial { channels: Lock::new([0; 512]), tx}; // channel default created here!
         let mut agent = DMXSerialAgent::init(port)?;
         let channel_view = dmx.channels.read_only();
         let _ = thread::spawn(move || {
@@ -63,36 +63,22 @@ impl DMXSerial {
     pub fn set_channel(&mut self, channel: usize, value: u8) -> Result<(), DMXError> {
         check_valid_channel(channel)?;
         let mut channels = self.channels.write().unwrap();
-        if channels.len() < channel {
-            channels.resize(channel, 0);
-        }
         channels[channel - 1] = value;
-        channels.shrink_to_fit();
         Ok(())
     }
 
     pub fn get_channel(&self, channel: usize) -> Result<u8, DMXError> {
         check_valid_channel(channel)?;
         let channels = self.channels.read().unwrap();
-        if channel > channels.len() {
-            return Err(DMXError::NotInitialized);
-        }
         Ok(channels[channel - 1])
     }
 
-    pub fn get_channels(&self) -> Vec<u8> {
-        self.channels.read().unwrap().to_vec()
-    }
-
-    pub fn set_max_channels(&mut self, max_channels: usize) -> Result<(), DMXError> {
-        check_valid_channel(max_channels)?;
-        let mut channels = self.channels.write().unwrap();
-        channels.resize(max_channels, 0);
-        Ok(())
+    pub fn get_channels(&self) -> [u8; 512] {
+        self.channels.read().unwrap().clone()
     }
 
     pub fn reset_channels(&mut self) {
-        self.set_channel(1, 0).unwrap();
+        self.channels.write().unwrap().fill(0);
     }
 }
 
@@ -121,11 +107,11 @@ impl DMXSerialAgent {
         Ok(())
     }
 
-    pub fn send_dmx_packet(&mut self, channels: Vec<u8>) -> serial::Result<()> {
+    pub fn send_dmx_packet(&mut self, channels: [u8; 512]) -> serial::Result<()> {
         self.send_break()?;
         thread::sleep(SERIAL_TOTAL_BREAK);
-        let mut prefixed_data = channels;
-        prefixed_data.insert(0, 0x00); // DMX start code
+        let mut prefixed_data = [0; 513]; // 1 start byte + 512 channels
+        prefixed_data[1..].copy_from_slice(&channels);
         self.send_data(&prefixed_data)?;
         Ok(())
     }
