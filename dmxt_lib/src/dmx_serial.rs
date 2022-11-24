@@ -67,6 +67,7 @@ impl DMXSerial {
             channels.resize(channel, 0);
         }
         channels[channel - 1] = value;
+        channels.shrink_to_fit();
         Ok(())
     }
 
@@ -88,6 +89,10 @@ impl DMXSerial {
         let mut channels = self.channels.write().unwrap();
         channels.resize(max_channels, 0);
         Ok(())
+    }
+
+    pub fn reset_channels(&mut self) {
+        self.set_channel(1, 0).unwrap();
     }
 }
 

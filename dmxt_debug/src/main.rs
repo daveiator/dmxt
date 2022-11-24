@@ -77,28 +77,30 @@ impl eframe::App for MyApp {
             }
             ui.separator();
             ui.add_space(10.0);
+            ui.horizontal(|ui| {
+                ui.add(egui::Button::new("New Channel"));
+                if ui.add(egui::Button::new("Reset")).clicked() {
+                    self.channels = vec![ChannelComponent::new(1, 0).unwrap(); 1];
+                    self.dmx.as_mut().unwrap().reset_channels();
+                }
+            });
             ui.group(|ui| {
-                ui.style_mut().spacing.slider_width = ui.available_height() - 72.0;
+                ui.style_mut().spacing.slider_width = ui.available_height() - 100.0;
                 egui::ScrollArea::horizontal().always_show_scroll(true).auto_shrink([false, true]).show(ui, |ui| {
                     ui.horizontal(|ui| {
-                        for channel in self.channels.iter_mut() {
-                                ui.group(|ui| {
-                                channel.update(ui);
-                                match dmx_serial::check_valid_channel(channel.channel) {
-                                    Ok(_) => {
-                                        self.dmx.as_mut().unwrap().set_channel(channel.channel, channel.value).unwrap();
-                                    },
-                                    Err(e) => {
-                                        println!("Error: {}", e);
-                                        channel.channel = 1;
-                                    }
+                        for channel in self.channels.iter_mut() {     
+                            channel.update(ui);
+                            match dmx_serial::check_valid_channel(channel.channel) {
+                                Ok(_) => {
+                                    self.dmx.as_mut().unwrap().set_channel(channel.channel, channel.value).unwrap();
+                                },
+                                Err(e) => {
+                                    println!("Error: {}", e);
+                                    channel.channel = 1;
                                 }
-                            });
+                            } 
                         }
                     });
-                });
-                ui.horizontal(|ui| {
-                    ui.add(egui::Button::new("New Channel"));
                 });
             });
         });
@@ -126,12 +128,22 @@ impl ChannelComponent {
     }
 
     fn update(&mut self, ui: &mut egui::Ui) {
-        ui.vertical(|ui| {
-            ui.add(
-                egui::DragValue::new(&mut self.channel)
-                .fixed_decimals(0)
-            );
-            ui.add(egui::Slider::new(&mut self.value, 0..=255).vertical());
+        ui.group(|ui| {
+            ui.set_max_width(25.0);
+            ui.vertical_centered_justified(|ui| {
+                ui.add(egui::Slider::new(&mut self.value, 0..=255).vertical().show_value(false));
+                ui.add(
+                    egui::DragValue::new(&mut self.value)
+                    .fixed_decimals(0)
+                ).on_hover_text("Value");
+                ui.add(
+                    egui::DragValue::new(&mut self.channel)
+                    .fixed_decimals(0)
+                ).on_hover_text("Channel");
+                ui.separator();
+                ui.add_space(10.0);
+                ui.add(egui::Button::new("X")).on_hover_text("Delete Channel");
+            });
         });
     }
 }
