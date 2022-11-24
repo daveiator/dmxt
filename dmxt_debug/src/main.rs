@@ -72,21 +72,29 @@ impl eframe::App for MyApp {
                 }
                     ui.add(egui::Label::new(self.status.clone()).wrap(true));
             });
-            if self.dmx.is_none() { return; }
+            if self.dmx.is_none() {
+                return;
+            }
             ui.separator();
             ui.add_space(10.0);
             ui.style_mut().spacing.slider_width = 350.0;
-            egui::ScrollArea::horizontal()
-                .always_show_scroll(true)
-                .auto_shrink([false, true])
-                .show(ui, |ui| {
-                    ui.horizontal(|ui| {
-                        for channel in self.channels.iter_mut() {
-                            channel.update(ui, &mut self.dmx.as_mut().unwrap());
+            egui::ScrollArea::horizontal().always_show_scroll(true).auto_shrink([false, true]).show(ui, |ui| {
+                ui.horizontal(|ui| {
+                    for channel in self.channels.iter_mut() {
+                        channel.update(ui);
+                        match dmx_serial::check_valid_channel(channel.channel) {
+                            Ok(_) => {
+                                // self.dmx.as_ref().unwrap().set_channel(channel.channel, channel.value);
+                            },
+                            Err(e) => {
+                                println!("Error: {}", e);
+                                channel.channel = 1;
+                            }
                         }
-                    });
+                    }
                 });
             });
+        });
     }
 }
 
@@ -110,7 +118,7 @@ impl ChannelComponent {
         }
     }
 
-    fn update(&mut self, ui: &mut egui::Ui, dmx: &mut DMXSerial) {
+    fn update(&mut self, ui: &mut egui::Ui) {
         ui.vertical(|ui| {
             ui.add(
                 egui::DragValue::new(&mut self.channel)
@@ -118,17 +126,5 @@ impl ChannelComponent {
             );
             ui.add(egui::Slider::new(&mut self.value, 0..=255).vertical());
         });
-
-        match dmx_serial::check_valid_channel(self.channel) {
-            Ok(_) => {
-                dmx.set_channel(self.channel, self.value);
-            },
-            Err(e) => {
-                println!("Error: {}", e);
-                self.channel = 1;
-            }
-        }
-
-
     }
 }
