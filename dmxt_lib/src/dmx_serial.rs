@@ -44,11 +44,14 @@ impl DMXSerial {
                 loop {
                     agent.channels = match rx.try_recv() {
                         Ok(channels) => channels,
-                        Err(mpsc::TryRecvError::Disconnected) => break,
+                        Err(mpsc::TryRecvError::Disconnected) => {
+                            println!("DMXSerialAgent: Channel disconnected!");
+                            break;
+                        },
                         Err(_) => agent.channels,
                     };
                     agent.send_dmx_packet().unwrap();
-                    println!("{:?}", agent.channels); //Debug
+                    // println!("{:?}", agent.channels); //Debug
                 }
         });
         Ok(dmx)

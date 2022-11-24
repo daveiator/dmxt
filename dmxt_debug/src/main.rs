@@ -20,18 +20,16 @@ struct MyApp {
     dmx: Option<DMXSerial>,
     connection_error: bool,
     status: egui::RichText,
-    temp: u8
 }
 
 impl Default for MyApp {
     fn default() -> Self {
         Self {
-            channels: vec![ChannelComponent::new(1, 0).unwrap()],
+            channels: vec![ChannelComponent::new(1, 0).unwrap(); 24],
             interface_path: String::new(),
             dmx: Option::None,
             connection_error: false,
             status: egui::RichText::new(""),
-            temp: 0
         }
     }
 }
@@ -67,6 +65,7 @@ impl eframe::App for MyApp {
                     }
                 } else {
                     if ui.button("Disconnect").clicked() {
+                        println!("Disconnecting...");
                         self.dmx = Option::None;
                         self.status = egui::RichText::new("");
                     }
@@ -82,13 +81,17 @@ impl eframe::App for MyApp {
                 .auto_shrink([false, true])
                 .show(ui, |ui| {
                     ui.horizontal(|ui| {
-                        ui.add(egui::Slider::new(&mut self.temp, 0..=255).text(format!("")).vertical());
+                        for channel in self.channels.iter_mut() {
+                            channel.update(ui, &mut self.dmx.as_mut().unwrap());
+                        }
                     });
                 });
             });
     }
 }
 
+
+#[derive(Debug, Clone)]
 struct ChannelComponent {
     channel: usize,
     value: u8,
@@ -107,10 +110,25 @@ impl ChannelComponent {
         }
     }
 
-    fn show(&mut self, ui: &mut egui::Ui) {
+    fn update(&mut self, ui: &mut egui::Ui, dmx: &mut DMXSerial) {
         ui.vertical(|ui| {
-            ui.add(egui::Label::new(format!("Channel {}:", self.channel)));
-            ui.add(egui::Slider::new(&mut self.value, 0..=255).text(format!("")).vertical());
+            ui.add(
+                egui::DragValue::new(&mut self.channel)
+                .fixed_decimals(0)
+            );
+            ui.add(egui::Slider::new(&mut self.value, 0..=255).vertical());
         });
+
+        match dmx_serial::check_valid_channel(self.channel) {
+            Ok(_) => {
+                dmx.set_channel(self.channel, self.value);
+            },
+            Err(e) => {
+                println!("Error: {}", e);
+                self.channel = 1;
+            }
+        }
+
+
     }
 }
