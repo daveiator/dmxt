@@ -1,6 +1,8 @@
 use serial;
 use serial::SerialPort;
 
+use thread_priority;
+
 use std::time;
 use std::io::Write;
 use std::ffi::OsStr;
@@ -38,11 +40,16 @@ impl DMXSerial {
         let dmx = DMXSerial { channels: vec![0], tx}; // channel default created here!
         let mut agent = DMXSerialAgent::init(port, dmx.get_channels())?;
         let _ = thread::spawn(move || {
-            loop {
-                agent.channels = rx.try_recv().unwrap_or(agent.channels);
-                agent.send_dmx_packet().unwrap();
-                // println!("{:?}", agent.channels); //Debug
-            }
+                thread_priority::set_current_thread_priority(thread_priority::ThreadPriority::Max).unwrap();
+                loop {
+                    agent.channels = match rx.try_recv() {
+                        Ok(channels) => channels,
+                        Err(mpsc::TryRecvError::Disconnected) => break,
+                        Err(_) => agent.channels,
+                    };
+                    agent.send_dmx_packet().unwrap();
+                    println!("{:?}", agent.channels); //Debug
+                }
         });
         Ok(dmx)
     }
@@ -72,6 +79,7 @@ impl DMXSerial {
     pub fn set_max_channels(&mut self, max_channels: usize) -> Result<(), DMXError> {
         check_valid_channel(max_channels)?;
         self.channels.resize(max_channels, 0);
+        self.tx.send(self.channels.clone()).unwrap();
         Ok(())
     }
 }
@@ -115,13 +123,12 @@ impl DMXSerialAgent {
 
 
 
-fn check_valid_channel(channel: usize) -> Result<(), DMXError> {
+pub fn check_valid_channel(channel: usize) -> Result<(), DMXError> {
     if channel > 512 || channel < 1 {
         return Err(DMXError::NotValid);
     }
     Ok(())
 }
-
 
 #[derive(Debug)]
 pub enum DMXError {

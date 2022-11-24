@@ -9,7 +9,8 @@ edition = "2021"
 members = [
     "dmxt_lib",
     "dmxt_kernel",
-    "dmxt_webui"
+    "dmxt_webui",
+    "dmxt_debug"
 ]
 
 
