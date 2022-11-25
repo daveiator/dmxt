@@ -1,6 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-use eframe::egui::{self, ScrollArea};
+use eframe::egui;
 
 use dmxt_lib::dmx_serial::{self, DMXSerial, DMXError};
 
@@ -177,7 +177,6 @@ impl ChannelComponent {
                     egui::DragValue::new(&mut self.value)
                     .fixed_decimals(0)
                 ).on_hover_text("Value");
-                let old_channel = self.channel.clone();
                 ui.add(
                     egui::DragValue::new(&mut self.channel)
                     .fixed_decimals(0)

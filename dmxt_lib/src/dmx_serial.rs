@@ -34,14 +34,14 @@ const SERIAL_TOTAL_BREAK: time::Duration = time::Duration::new(0, 136_000);
 
 pub struct DMXSerial {
     channels: Lock<[u8; 512]>, //512 channels
-    tx: mpsc::Sender<()>,
+    _tx: mpsc::Sender<()>,
 
 }
 
 impl DMXSerial {
     pub fn open<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerial, serial::Error> {
-        let (tx, rx) = mpsc::channel();
-        let dmx = DMXSerial { channels: Lock::new([0; 512]), tx}; // channel default created here!
+        let (_tx, rx) = mpsc::channel();
+        let dmx = DMXSerial { channels: Lock::new([0; 512]), _tx}; // channel default created here!
         let mut agent = DMXSerialAgent::init(port)?;
         let channel_view = dmx.channels.read_only();
         let _ = thread::spawn(move || {
