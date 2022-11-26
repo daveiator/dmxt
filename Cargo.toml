@@ -1,18 +1,8 @@
-[package]
-name = "dmxt"
-version = "0.1.0"
-edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [workspace]
 members = [
     "dmxt_lib",
     "dmxt_kernel",
     "dmxt_webui",
-    "dmxt_debug"
+    # dmxt test programs:
+    "dmxt_test_programs/dmxt_debug",
 ]
-
-
-[dependencies]
-dmxt_lib = { path = "dmxt_lib" }

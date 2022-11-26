@@ -144,7 +144,7 @@ impl std::fmt::Display for DMXError {
             DMXError::NotValid(exact) => match exact {
                 DMXErrorValidity::TooHigh => write!(f, "DMX channel too high"),
                 DMXErrorValidity::TooLow => write!(f, "DMX channel too low"),
-                _ => write!(f, "Channel is not valid ( < 1 or > 512"),
+                // _ => write!(f, "Channel is not valid ( < 1 or > 512"),
             },
             DMXError::NoChannels => write!(f, "No channels available"),
             DMXError::Other(ref s) => write!(f, "{}", s),

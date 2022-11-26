@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 eframe = "0.19.0"
-dmxt_lib = { path = "../dmxt_lib" }
+dmxt_lib = { path = "../../dmxt_lib" }
