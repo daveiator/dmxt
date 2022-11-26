@@ -2,7 +2,10 @@
 
 use eframe::egui;
 
-use dmxt_lib::dmx_serial::{self, DMXSerial, DMXError};
+use dmxt_lib::check_valid_channel;
+use dmxt_lib::dmx::DMX_CHANNELS;
+use dmxt_lib::dmx::serial::DMXSerial;
+use dmxt_lib::error::{DMXError, DMXErrorValidity};
 
 
 fn main() {
@@ -16,7 +19,7 @@ fn main() {
 
 struct MyApp {
     channels: Vec<ChannelComponent>,
-    is_free: [bool; 512],
+    is_free: [bool; DMX_CHANNELS],
     interface_path: String,
     dmx: Option<DMXSerial>,
     connection_error: bool,
@@ -25,7 +28,7 @@ struct MyApp {
 
 impl Default for MyApp {
     fn default() -> Self {
-        let mut is_free = [true; 512];
+        let mut is_free = [true; DMX_CHANNELS];
         Self {
             channels: vec![ChannelComponent::create_next(&mut is_free, 0).unwrap(); 1],
             is_free,
@@ -88,7 +91,7 @@ impl eframe::App for MyApp {
                     }
                 }
                 if ui.add(egui::Button::new("Reset")).clicked() {
-                    self.is_free = [true; 512];
+                    self.is_free = [true; DMX_CHANNELS];
                     self.channels = vec![ChannelComponent::new(&mut self.is_free, 1, 0).unwrap(); 1];
                     self.dmx.as_mut().unwrap().reset_channels();
                 }
@@ -100,16 +103,16 @@ impl eframe::App for MyApp {
                         let free_channels = &mut self.is_free;
                         for channel in self.channels.iter_mut() {    
                             channel.update(free_channels, ui);
-                            match dmx_serial::check_valid_channel(channel.channel) {
+                            match check_valid_channel(channel.channel) {
                                 Ok(_) => {
                                     self.dmx.as_mut().unwrap().set_channel(channel.channel, channel.value).unwrap();
                                 },
                                 Err(DMXError::NotValid(cause)) => {
                                     match cause {
-                                        dmx_serial::DMXErrorValidity::TooHigh => {
-                                            channel.channel = 512;
+                                        DMXErrorValidity::TooHigh => {
+                                            channel.channel = DMX_CHANNELS;
                                         },
-                                        dmx_serial::DMXErrorValidity::TooLow => {
+                                        DMXErrorValidity::TooLow => {
                                             channel.channel = 1;
                                         },
                                     }
@@ -138,8 +141,8 @@ struct ChannelComponent {
 }
 
 impl ChannelComponent {
-    fn new(free_channels: &mut[bool; 512], channel:usize, value: u8) -> Result<Self, DMXError> {
-        match dmx_serial::check_valid_channel(channel) {
+    fn new(free_channels: &mut[bool; DMX_CHANNELS], channel:usize, value: u8) -> Result<Self, DMXError> {
+        match check_valid_channel(channel) {
             Ok(_) => {
                 if free_channels[channel -1] {
                     Ok(Self {
@@ -155,7 +158,7 @@ impl ChannelComponent {
         }
     }
 
-    fn create_next(free_channels: &mut[bool; 512], value: u8) -> Result<Self, DMXError> {
+    fn create_next(free_channels: &mut[bool; DMX_CHANNELS], value: u8) -> Result<Self, DMXError> {
         if let Some(index) = free_channels.iter().position(|&x| x) {
             free_channels[index] = false;
             Ok(Self {
@@ -168,7 +171,7 @@ impl ChannelComponent {
         }
     }
 
-    fn update(&mut self, free_channels: &mut [bool; 512], ui: &mut egui::Ui) {
+    fn update(&mut self, free_channels: &mut [bool; DMX_CHANNELS], ui: &mut egui::Ui) {
         ui.group(|ui| {
             ui.set_max_width(25.0);
             ui.vertical_centered_justified(|ui| {
@@ -191,7 +194,7 @@ impl ChannelComponent {
         });
     }
 
-    fn unregister(&mut self, free_channels: &mut [bool; 512]) {
+    fn unregister(&mut self, free_channels: &mut [bool; DMX_CHANNELS]) {
         println!("Unregistering channel {}", self.channel);
         free_channels[self.channel - 1] = true;
     }

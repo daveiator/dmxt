@@ -1,4 +1,7 @@
-use super::threads::shared::Lock;
+use crate::threads::shared::Lock;
+use crate::check_valid_channel;
+use crate::error::DMXError;
+use crate::dmx::DMX_CHANNELS;
 
 use serial;
 use serial::SerialPort;
@@ -10,7 +13,6 @@ use std::io::Write;
 use std::ffi::OsStr;
 use std::thread;
 use std::sync::mpsc;
-
 
 const BREAK_SETTINGS: serial::PortSettings = serial::PortSettings {
     baud_rate: serial::Baud57600,
@@ -33,7 +35,7 @@ const SERIAL_TOTAL_BREAK: time::Duration = time::Duration::new(0, 136_000);
 
 
 pub struct DMXSerial {
-    channels: Lock<[u8; 512]>, //512 channels
+    channels: Lock<[u8; DMX_CHANNELS]>, //channels
     _tx: mpsc::Sender<()>,
 
 }
@@ -41,7 +43,7 @@ pub struct DMXSerial {
 impl DMXSerial {
     pub fn open<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerial, serial::Error> {
         let (_tx, rx) = mpsc::channel();
-        let dmx = DMXSerial { channels: Lock::new([0; 512]), _tx}; // channel default created here!
+        let dmx = DMXSerial { channels: Lock::new([0; DMX_CHANNELS]), _tx}; // channel default created here!
         let mut agent = DMXSerialAgent::init(port)?;
         let channel_view = dmx.channels.read_only();
         let _ = thread::spawn(move || {
@@ -73,7 +75,7 @@ impl DMXSerial {
         Ok(channels[channel - 1])
     }
 
-    pub fn get_channels(&self) -> [u8; 512] {
+    pub fn get_channels(&self) -> [u8; DMX_CHANNELS] {
         self.channels.read().unwrap().clone()
     }
 
@@ -107,66 +109,12 @@ impl DMXSerialAgent {
         Ok(())
     }
 
-    pub fn send_dmx_packet(&mut self, channels: [u8; 512]) -> serial::Result<()> {
+    pub fn send_dmx_packet(&mut self, channels: [u8; DMX_CHANNELS]) -> serial::Result<()> {
         self.send_break()?;
         thread::sleep(SERIAL_TOTAL_BREAK);
-        let mut prefixed_data = [0; 513]; // 1 start byte + 512 channels
+        let mut prefixed_data = [0; DMX_CHANNELS + 1]; // 1 start byte + 512 channels
         prefixed_data[1..].copy_from_slice(&channels);
         self.send_data(&prefixed_data)?;
         Ok(())
     }
-}
-
-
-
-pub fn check_valid_channel(channel: usize) -> Result<(), DMXError> {
-    if channel > 512 {
-        return Err(DMXError::NotValid(DMXErrorValidity::TooHigh));
-    }
-    if channel < 1 {
-        return Err(DMXError::NotValid(DMXErrorValidity::TooLow));
-    }
-    Ok(())
-}
-
-#[derive(Debug)]
-pub enum DMXError {
-    AlreadyInUse,
-    NotValid(DMXErrorValidity),
-    NoChannels,
-    Other(String) 
-}
-
-impl std::fmt::Display for DMXError {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        match self {
-            DMXError::AlreadyInUse => write!(f, "DMX channel already in use"),
-            DMXError::NotValid(exact) => match exact {
-                DMXErrorValidity::TooHigh => write!(f, "DMX channel too high"),
-                DMXErrorValidity::TooLow => write!(f, "DMX channel too low"),
-                // _ => write!(f, "Channel is not valid ( < 1 or > 512"),
-            },
-            DMXError::NoChannels => write!(f, "No channels available"),
-            DMXError::Other(ref s) => write!(f, "{}", s),
-        }
-    }
-} 
-
-
-impl From<String> for DMXError {
-    fn from(err: String) -> DMXError {
-        DMXError::Other(err)
-    }
-}
-
-impl std::error::Error for DMXError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        None //I'm laz
-    }
-}
-
-#[derive(Debug)]
-pub enum DMXErrorValidity {
-    TooHigh,
-    TooLow,
 }

@@ -1,6 +1,20 @@
-pub mod dmx_serial;
-pub mod dmxt_json;
+pub mod dmx;
 pub mod threads;
+pub mod error;
+
+
+
+
+
+pub fn check_valid_channel(channel: usize) -> Result<(), error::DMXError> {
+    if channel > dmx::DMX_CHANNELS {
+        return Err(error::DMXError::NotValid(error::DMXErrorValidity::TooHigh));
+    }
+    if channel < 1 {
+        return Err(error::DMXError::NotValid(error::DMXErrorValidity::TooLow));
+    }
+    Ok(())
+}
 
 #[cfg(test)]
 mod tests {

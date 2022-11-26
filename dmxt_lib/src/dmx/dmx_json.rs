@@ -1,7 +1,7 @@
 //All data types that can be saved as a json file
 
 use serde::{Serialize, Deserialize};
-use super::dmx_serial::{check_valid_channel, DMXError};
+use crate::{check_valid_channel, error::DMXError};
 
 #[derive(Serialize, Deserialize)]
 pub struct FixtureModel {
