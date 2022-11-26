@@ -14,6 +14,7 @@ use std::ffi::OsStr;
 use std::thread;
 use std::sync::mpsc;
 
+// Holds the serial port settings for the Break-Signals
 const BREAK_SETTINGS: serial::PortSettings = serial::PortSettings {
     baud_rate: serial::Baud57600,
     char_size: serial::Bits7,
@@ -22,6 +23,7 @@ const BREAK_SETTINGS: serial::PortSettings = serial::PortSettings {
     flow_control: serial::FlowNone,
 };
 
+// Holds the serial port settings for the Data-Signals
 const DMX_SETTINGS: serial::PortSettings = serial::PortSettings {
     baud_rate: serial::BaudOther(250_000),
     char_size: serial::Bits8,
@@ -30,24 +32,34 @@ const DMX_SETTINGS: serial::PortSettings = serial::PortSettings {
     flow_control: serial::FlowNone,
 };
 
-const SERIAL_TOTAL_BREAK: time::Duration = time::Duration::new(0, 136_000);
+// Sleep duration between sending the break and the data
+const TIME_BREAK_TO_DATA: time::Duration = time::Duration::new(0, 136_000);
+
+// Minimum time between break and break
+const MIN_TIME_BREAK_TO_BREAK: time::Duration = time::Duration::from_micros(40_000);
 
 
-
+/// A Serial DMX-Interface which writes to the Serial-Port independently from the main thread. 
+#[derive(Debug)]
 pub struct DMXSerial {
-    channels: Lock<[u8; DMX_CHANNELS]>, //channels
+    // Array of DMX-Values which are written to the Serial-Port
+    channels: Lock<[u8; DMX_CHANNELS]>,
+    // Connection to the Agent-Thread, if this is dropped the Agent-Thread will stop
     _tx: mpsc::Sender<()>,
 
 }
 
 impl DMXSerial {
+    /// Opens a new DMX-Interface on the given Serial-Port path. Returns an error if the port could not be opened.
     pub fn open<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerial, serial::Error> {
         let (_tx, rx) = mpsc::channel();
         let dmx = DMXSerial { channels: Lock::new([0; DMX_CHANNELS]), _tx}; // channel default created here!
         let mut agent = DMXSerialAgent::init(port)?;
         let channel_view = dmx.channels.read_only();
         let _ = thread::spawn(move || {
-                thread_priority::set_current_thread_priority(thread_priority::ThreadPriority::Max).unwrap();
+                thread_priority::set_current_thread_priority(thread_priority::ThreadPriority::Max).unwrap_or_else(|e| {
+                    eprintln!("Failed to set thread priority: \"{:?}\". Continuing anyways...", e)
+                });
                 loop {
                     match rx.try_recv() {
                         Err(mpsc::TryRecvError::Disconnected) => break,
@@ -110,11 +122,15 @@ impl DMXSerialAgent {
     }
 
     pub fn send_dmx_packet(&mut self, channels: [u8; DMX_CHANNELS]) -> serial::Result<()> {
+        let start = time::Instant::now();
         self.send_break()?;
-        thread::sleep(SERIAL_TOTAL_BREAK);
+        thread::sleep(TIME_BREAK_TO_DATA);
         let mut prefixed_data = [0; DMX_CHANNELS + 1]; // 1 start byte + 512 channels
         prefixed_data[1..].copy_from_slice(&channels);
         self.send_data(&prefixed_data)?;
+        // print!("\rTime: {:?} ", start.elapsed());
+        thread::sleep(MIN_TIME_BREAK_TO_BREAK.saturating_sub(start.elapsed()));
+        // print!("Time to send: {:?}", start.elapsed());
         Ok(())
     }
 }

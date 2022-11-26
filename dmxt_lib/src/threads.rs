@@ -1,6 +1,7 @@
 pub mod shared {
     use std::sync::{Arc, LockResult, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
+    #[derive(Debug)]
     pub struct Lock<T> {
         inner: Arc<RwLock<T>>,
     }
