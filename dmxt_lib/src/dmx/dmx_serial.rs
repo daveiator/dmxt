@@ -121,16 +121,40 @@ impl DMXSerialAgent {
         Ok(())
     }
 
+    #[cfg(feature = "short_dmx")]
     pub fn send_dmx_packet(&mut self, channels: [u8; DMX_CHANNELS]) -> serial::Result<()> {
         let start = time::Instant::now();
         self.send_break()?;
         thread::sleep(TIME_BREAK_TO_DATA);
-        let mut prefixed_data = [0; DMX_CHANNELS + 1]; // 1 start byte + 512 channels
+        let last_not_zero = channels.iter().rposition(|&x| x != 0).unwrap_or(0);
+        let mut prefixed_data = [0; 513];// 1 start byte + 512 channels
+        prefixed_data[1..].copy_from_slice(&channels);
+        self.send_data(&prefixed_data[..last_not_zero])?;
+        #[cfg(profile = "dev")]
+        print!("\rTime: {:?} ", start.elapsed());
+        thread::sleep(MIN_TIME_BREAK_TO_BREAK.saturating_sub(start.elapsed()));
+        #[cfg(profile = "dev")]
+        print!("Time to send: {:?}", start.elapsed());
+        Ok(())
+    }
+
+    #[cfg(not(feature = "short_dmx"))]
+    pub fn send_dmx_packet(&mut self, channels: [u8; DMX_CHANNELS]) -> serial::Result<()> {
+        let start = time::Instant::now();
+        self.send_break()?;
+        thread::sleep(TIME_BREAK_TO_DATA);
+        let mut prefixed_data = [0; 513];// 1 start byte + 512 channels
         prefixed_data[1..].copy_from_slice(&channels);
         self.send_data(&prefixed_data)?;
-        // print!("\rTime: {:?} ", start.elapsed());
+
+        #[cfg(profile = "dev")]
+        print!("\rTime: {:?} ", start.elapsed());
+
         thread::sleep(MIN_TIME_BREAK_TO_BREAK.saturating_sub(start.elapsed()));
-        // print!("Time to send: {:?}", start.elapsed());
+
+        #[cfg(profile = "dev")]
+        print!("Time to send: {:?}", start.elapsed());
+
         Ok(())
     }
 }
