@@ -43,7 +43,7 @@ macro_rules! movement_axis {
 #[macro_export]
 macro_rules! operation_mode {
     ($operation_mode_type:expr, $address:expr) => {
-        dmxt_lib::builders::fixture::FixtureOperationMode::new($operation_mode_type, $address, vec![])
+        dmxt_lib::builders::fixture::FixtureOperationMode::new($operation_mode_type, Some($address), vec![])
     };
     ($operation_mode_type:expr, $address:expr, $sub_operation_modes:expr) => {
         dmxt_lib::builders::fixture::FixtureOperationMode::new($operation_mode_type, $address, $sub_operation_modes)

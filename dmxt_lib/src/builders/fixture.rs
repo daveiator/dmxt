@@ -2,6 +2,7 @@ use crate::builders::error::BuildError;
 use crate::dmx::{DMXRange, DMXAddress, Color, Channel};
 
 use std::path::Path;
+use std::vec;
 
 use serde::{Serialize, Deserialize};
 
@@ -67,12 +68,12 @@ pub struct FixtureChannelMode {
     
     pub operation_modes: Vec<FixtureOperationMode>,
     pub movement: Option<FixtureMovement>,
-    pub lights: Option<FixtureLights>,
+    pub lights: Option<FixtureMatrix>,
     
-    pub name: Option<String>,
+    pub name: Option<FixtureName>,
     pub zoom: Option<FixtureZoom>,
 
-    pub custom: Option<Vec<FixtureCustom>>,
+    pub custom: Option<Vec<FixtureCustomOperation>>,
 }
 
 impl FixtureChannelMode {
@@ -85,11 +86,11 @@ impl FixtureChannelMode {
 pub struct FixtureChannelModeBuilder {
     total_channels: Option<Channel>,
     operation_modes: Vec<FixtureOperationMode>,
-    lights: Option<FixtureLights>,
-    name: Option<String>,
+    lights: Option<FixtureMatrix>,
+    name: Option<FixtureName>,
     movement: Option<FixtureMovement>,
     zoom: Option<FixtureZoom>,
-    custom: Option<Vec<FixtureCustom>>,
+    custom: Option<Vec<FixtureCustomOperation>>,
 }
 
 impl FixtureChannelModeBuilder {
@@ -105,10 +106,14 @@ impl FixtureChannelModeBuilder {
         self
     }
     pub fn lights(&mut self, lights: FixtureLights) -> &mut Self {
-        self.lights = Some(lights);
+        self.lights = Some(FixtureMatrix::new(vec![vec![lights]]));
         self
     }
-    pub fn name(&mut self, name: String) -> &mut Self {
+    pub fn matrix(&mut self, matrix: FixtureMatrix) -> &mut Self {
+        self.lights = Some(matrix);
+        self
+    }
+    pub fn name(&mut self, name: FixtureName) -> &mut Self {
         self.name = Some(name);
         self
     }
@@ -120,7 +125,7 @@ impl FixtureChannelModeBuilder {
         self.zoom = Some(zoom);
         self
     }
-    pub fn custom(&mut self, custom: FixtureCustom) -> &mut Self {
+    pub fn custom(&mut self, custom: FixtureCustomOperation) -> &mut Self {
         if self.custom.is_none() {
             self.custom = Some(Vec::new());
         }
@@ -131,12 +136,6 @@ impl FixtureChannelModeBuilder {
     pub fn build(&self) -> Result<FixtureChannelMode, BuildError> {
         if self.total_channels.is_none() {
             return Err(BuildError::MissingField("total_channels"));
-        }
-        if self.operation_modes.is_empty() {
-            return Err(BuildError::MissingField("operation_modes"));
-        }
-        if self.lights.is_none() {
-            return Err(BuildError::MissingField("lights"));
         }
         Ok(FixtureChannelMode {
             total_channels: self.total_channels.unwrap(),
@@ -153,15 +152,15 @@ impl FixtureChannelModeBuilder {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureOperationMode {
     pub mode_type: OperationModeType,
-    pub address: DMXAddress,
-    pub submodes: Vec<FixtureSubOperationMode>,
+    pub address: Option<DMXAddress>,
+    pub submodes: Vec<FixtureCustomOperation>,
 }
 
 impl FixtureOperationMode {
     pub fn builder() -> FixtureOperationModeBuilder {
         FixtureOperationModeBuilder::default()
     }
-    pub fn new(mode_type: OperationModeType, address: DMXAddress, submodes: Vec<FixtureSubOperationMode>) -> Self {
+    pub fn new(mode_type: OperationModeType, address: Option<DMXAddress>, submodes: Vec<FixtureCustomOperation>) -> Self {
         Self {
             mode_type,
             address,
@@ -174,7 +173,7 @@ impl FixtureOperationMode {
 pub struct FixtureOperationModeBuilder {
     mode_type: Option<OperationModeType>,
     address: Option<DMXAddress>,
-    submodes: Vec<FixtureSubOperationMode>,
+    submodes: Vec<FixtureCustomOperation>,
 }
 
 impl FixtureOperationModeBuilder {
@@ -189,7 +188,7 @@ impl FixtureOperationModeBuilder {
         self.address = Some(address);
         self
     }
-    pub fn submode(&mut self, submode: FixtureSubOperationMode) -> &mut Self {
+    pub fn submode(&mut self, submode: FixtureCustomOperation) -> &mut Self {
         self.submodes.push(submode);
         self
     }
@@ -197,17 +196,56 @@ impl FixtureOperationModeBuilder {
         if self.mode_type.is_none() {
             return Err(BuildError::MissingField("mode_type"));
         }
-        if self.address.is_none() {
-            return Err(BuildError::MissingField("address"));
+        if self.address.is_none() && self.submodes.is_empty() {
+            return Err(BuildError::MissingField("address or submodes"));
         }
         Ok(FixtureOperationMode {
             mode_type: self.mode_type.clone().unwrap(),
-            address: self.address.unwrap(),
+            address: self.address.clone(),
             submodes: self.submodes.clone(),
         })
     }
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FixtureMatrix {
+    pub matrix: Vec<Vec<FixtureLights>>,
+}
+
+impl FixtureMatrix {
+    pub fn new(matrix: Vec<Vec<FixtureLights>>) -> Self {
+        Self {
+            matrix,
+        }
+    }
+
+    pub fn builder() -> FixtureMatrixBuilder {
+        FixtureMatrixBuilder::default()
+    }
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct FixtureMatrixBuilder {
+    matrix: Vec<Vec<FixtureLights>>,
+}
+
+impl FixtureMatrixBuilder {
+    pub fn new() -> Self {
+        Self::default()
+    }
+    pub fn row(&mut self, row: Vec<FixtureLights>) -> &mut Self {
+        self.matrix.push(row);
+        self
+    }
+    pub fn build(&self) -> Result<FixtureMatrix, BuildError> {
+        if self.matrix.is_empty() {
+            return Err(BuildError::MissingField("matrix"));
+        }
+        Ok(FixtureMatrix {
+            matrix: self.matrix.clone(),
+        })
+    }
+}
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureLights {
     pub color_mode: FixtureColorMode,
@@ -230,6 +268,10 @@ pub enum FixtureColorMode {
     RGBW(DMXRange, DMXRange, DMXRange, DMXRange),
     CMY(DMXRange, DMXRange, DMXRange),
     CMYW(DMXRange, DMXRange, DMXRange, DMXRange),
+    RgbTrailingChannels(DMXRange),
+    RgbwTrailingChannels(DMXRange),
+    CmyTrailingChannels(DMXRange),
+    CmywTrailingChannels(DMXRange),
     Custom(String, Vec<DMXRange>),
 }
 
@@ -302,25 +344,10 @@ impl FixtureZoom {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub enum FixtureCustom {
-    Slider(String, DMXRange),
-    Button(String, DMXAddress),
-    Stepped(String, Vec<(String, DMXAddress)>),
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct FixtureSubOperationMode {
-    pub name: FixtureName,
-    pub address: DMXAddress,
-}
-
-impl FixtureSubOperationMode {
-    pub fn new(name: FixtureName, address: DMXAddress) -> Self {
-        Self {
-            name,
-            address,
-        }
-    }
+pub enum FixtureCustomOperation {
+    Slider(FixtureName, DMXRange),
+    Button(FixtureName, DMXAddress),
+    Stepped(FixtureName, Vec<(FixtureName, DMXAddress)>),
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
