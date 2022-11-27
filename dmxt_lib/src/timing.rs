@@ -44,23 +44,25 @@ impl Metronome {
         self.content = MetronomeContent::Channel(tx);
         let bpm_view = self.bpm.read_only();
         let _ = thread::spawn(move || {
+            let mut true_callback = callback;
             loop {
                 match rx.try_recv() {
                     Ok(MetronomeCommand::Stop) => {
                         break;
                     },
-                    Ok(MetronomeCommand::NewCallback(mut callback)) => {
-                        callback = callback;
+                    Ok(MetronomeCommand::NewCallback(callback)) => {
+                        true_callback = callback;
                     },
                     Err(mpsc::TryRecvError::Disconnected) => {
                         break;
                     },
-                    _ => {}
+                    _ => {},
                 }
+                //execute callback
+                true_callback.lock().unwrap()();
                 let bpm = bpm_view.read().unwrap().clone();
                 thread::sleep(beat_duration(bpm));
-                //execute callback
-                callback.lock().unwrap()();
+                
             }
         });
         Ok(())
