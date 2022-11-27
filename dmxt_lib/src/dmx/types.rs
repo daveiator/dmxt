@@ -1,6 +1,8 @@
 
 use std::u8;
 
+use serde::{Serialize, Deserialize};
+
 use crate::check_valid_channel;
 use crate::error::DMXError;
 
@@ -11,7 +13,7 @@ pub struct DMXUniverse {
     pub channels: [u8; DMX_CHANNELS],
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub struct DMXRange {
     pub start: DMXAddress,
     pub end: DMXAddress,
@@ -42,7 +44,7 @@ impl From<(DMXAddress, DMXAddress)> for DMXRange {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct DMXAddress {
     pub channel: Channel,
     pub value: u8,
@@ -82,7 +84,7 @@ impl From<(u16, u8)> for DMXAddress {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Channel{
     id: u16
 }
@@ -106,7 +108,7 @@ impl From<u16> for Channel {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum Color {
     Red,
     Green,

@@ -59,9 +59,9 @@ fn main() {
         .build().unwrap();
 
 
-    // let _laser_json = serde_json::to_string_pretty(&_laser).unwrap();
+    let _laser_json = serde_json::to_string_pretty(&_laser).unwrap();
     println!("{:?}", _laser);
-    // println!("{}", _laser_json);
+    println!("{}", _laser_json);
 
 
     // let lightbar = Fixture.builder()

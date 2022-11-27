@@ -3,8 +3,9 @@ use crate::dmx::{DMXRange, DMXAddress, Color, Channel};
 
 use std::path::Path;
 
+use serde::{Serialize, Deserialize};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureModel {
     pub name: FixtureName,
     pub manufacturer: String,
@@ -17,7 +18,7 @@ impl FixtureModel {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct FixtureModelBuilder {
     name: Option<FixtureName>,
     manufacturer: Option<String>,
@@ -60,7 +61,7 @@ impl FixtureModelBuilder {
 }
 
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureChannelMode {
     pub total_channels: Channel,
     
@@ -80,7 +81,7 @@ impl FixtureChannelMode {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct FixtureChannelModeBuilder {
     total_channels: Option<Channel>,
     operation_modes: Vec<FixtureOperationMode>,
@@ -149,7 +150,7 @@ impl FixtureChannelModeBuilder {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureOperationMode {
     pub mode_type: OperationModeType,
     pub address: DMXAddress,
@@ -169,7 +170,7 @@ impl FixtureOperationMode {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct FixtureOperationModeBuilder {
     mode_type: Option<OperationModeType>,
     address: Option<DMXAddress>,
@@ -207,7 +208,7 @@ impl FixtureOperationModeBuilder {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureLights {
     pub color_mode: FixtureColorMode,
     pub dimmer: Option<DMXRange>,
@@ -222,7 +223,7 @@ impl FixtureLights {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum FixtureColorMode {
     Presets(Vec<(Color, DMXAddress)>),
     RGB(DMXRange, DMXRange, DMXRange),
@@ -232,7 +233,7 @@ pub enum FixtureColorMode {
     Custom(String, Vec<DMXRange>),
 }
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct FixtureMovement {
     pub pan: Option<MovementAxis>,
     pub tilt: Option<MovementAxis>,
@@ -244,7 +245,7 @@ impl FixtureMovement {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct FixtureMovementBuilder {
     pan: Option<MovementAxis>,
     tilt: Option<MovementAxis>,
@@ -270,7 +271,7 @@ impl FixtureMovementBuilder {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MovementAxis {
     pub range: DMXRange,
     pub reset: Option<DMXAddress>,
@@ -285,7 +286,7 @@ impl MovementAxis {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureZoom {
     pub range: DMXRange,
     pub reset: Option<DMXAddress>,
@@ -300,14 +301,14 @@ impl FixtureZoom {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum FixtureCustom {
     Slider(String, DMXRange),
     Button(String, DMXAddress),
     Stepped(String, Vec<(String, DMXAddress)>),
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FixtureSubOperationMode {
     pub name: FixtureName,
     pub address: DMXAddress,
@@ -322,7 +323,7 @@ impl FixtureSubOperationMode {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct FixtureName {
     name: String,
     icon: Option<Box<Path>>,
@@ -358,7 +359,7 @@ impl From<String> for FixtureName {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum OperationModeType {
     Off,
     On,
