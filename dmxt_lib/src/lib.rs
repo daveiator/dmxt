@@ -1,7 +1,7 @@
 pub mod dmx;
 pub mod threads;
 pub mod error;
-
+pub mod timing;
 
 
 

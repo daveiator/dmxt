@@ -5,4 +5,5 @@ members = [
     "dmxt_webui",
     # dmxt test programs:
     "dmxt_test_programs/dmxt_debug",
+    "dmxt_test_programs/metronome",
 ]
