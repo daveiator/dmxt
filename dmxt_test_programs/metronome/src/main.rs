@@ -3,6 +3,8 @@ use dmxt_lib::timing::Metronome;
 use std::sync::Mutex;
 use std::sync::Arc;
 
+use std::io::{stdin,stdout,Write};
+
 fn main() {
     unsafe {
 
@@ -21,6 +23,16 @@ fn main() {
         metronome.set_callback(callback_1).unwrap();
         println!("Starting with callback 1");
         metronome.start();
+
+        let mut s = String::new();
+        loop {
+            let _=stdout().flush();
+            stdin().read_line(&mut s).expect("Did not enter a correct string");
+            metronome.tap();
+            println!("BPM: {}", metronome.get_bpm());
+        }
+
+
         std::thread::sleep(std::time::Duration::from_secs(5));
         println!("Switching to callback 2 and doubling the bpm");
         metronome.set_callback(callback_2).unwrap();

@@ -1,5 +1,6 @@
 use crate::threads::shared::Lock;
 
+use std::collections::VecDeque;
 use std::time;
 use std::thread;
 use std::sync::mpsc;
@@ -10,6 +11,10 @@ pub type BPM = f64;
 pub struct Metronome {
     bpm: Lock<BPM>,
     content: MetronomeContent,
+
+    buffer_cap: u8,
+    bpm_buffer: VecDeque<BPM>,
+    last_tap: Option<time::Instant>,
 }
 
 impl Metronome {
@@ -17,6 +22,9 @@ impl Metronome {
         Metronome {
             bpm: Lock::new(bpm),
             content: MetronomeContent::Callback(Arc::new(Mutex::new(|| {}))),
+            buffer_cap: 16,
+            bpm_buffer: VecDeque::with_capacity(u8::MAX as usize + 1),
+            last_tap: None,
         }
     }
 
@@ -87,6 +95,30 @@ impl Metronome {
                 return Err(MetronomeError::AlreadyStopped);
             }
         }
+    }
+
+    pub fn tap(&mut self) {
+        let now = time::Instant::now();
+        if let Some(last) = self.last_tap.replace(now) {
+            let time_elapsed = now.saturating_duration_since(last).as_secs_f64();
+            self.bpm_buffer.push_back(60.0 / time_elapsed);
+
+            while self.bpm_buffer.len() > self.buffer_cap as usize {
+                self.bpm_buffer.pop_front();
+            }
+            
+            self.update_bpm();
+        }
+            
+    }
+
+    fn update_bpm(&mut self) {
+        let mut sum = 0.0;
+        for bpm in &self.bpm_buffer {
+            sum += bpm;
+        }
+        let avg = sum / self.bpm_buffer.len() as f64;
+        self.set_bpm(avg).unwrap();
     }
 }
 
