@@ -8,21 +8,21 @@ use std::io::{stdin,stdout,Write};
 fn main() {
     unsafe {
 
-        static mut counter: Counter = Counter{count: 0};
+        static mut COUNTER: Counter = Counter{count: 0};
 
         let callback_1 = Arc::new(Mutex::new(|| {
-            counter.increment();
+            COUNTER.increment();
         }));
 
-        let callback_2 = Arc::new(Mutex::new(|| {
-            counter.decrement();
+        let _callback_2 = Arc::new(Mutex::new(|| {
+            COUNTER.decrement();
         }));
 
 
         let mut metronome = Metronome::new(120.0);
         metronome.set_callback(callback_1).unwrap();
         println!("Starting with callback 1");
-        metronome.start();
+        metronome.start().unwrap();
 
         let mut s = String::new();
         loop {
@@ -31,14 +31,6 @@ fn main() {
             metronome.tap();
             println!("BPM: {}", metronome.get_bpm());
         }
-
-
-        std::thread::sleep(std::time::Duration::from_secs(5));
-        println!("Switching to callback 2 and doubling the bpm");
-        metronome.set_callback(callback_2).unwrap();
-        metronome.set_bpm(metronome.get_bpm() * 2.0).unwrap();
-        std::thread::sleep(std::time::Duration::from_secs(5));
-
     }
 }
 
@@ -47,10 +39,6 @@ struct Counter {
 }
 
 impl Counter {
-    fn new() -> Counter {
-        Counter { count: 0 }
-    }
-
     fn increment(&mut self) {
         self.count += 1;
         println!("count: {}", self.count);
