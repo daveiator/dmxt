@@ -32,6 +32,15 @@ impl Metronome {
         Ok(())
     }
 
+    pub fn set_bpm(&mut self, bpm: BPM) -> Result<(), MetronomeError> {
+        self.bpm.write().unwrap().clone_from(&bpm);
+        Ok(())
+    }
+
+    pub fn get_bpm(&self) -> BPM {
+        self.bpm.read().unwrap().clone()
+    }
+
     pub fn start(&mut self) -> Result<(), MetronomeError>{
         if let MetronomeContent::Channel(_) = &self.content {
             return Err(MetronomeError::AlreadyStarted);

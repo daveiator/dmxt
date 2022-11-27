@@ -22,8 +22,9 @@ fn main() {
         println!("Starting with callback 1");
         metronome.start();
         std::thread::sleep(std::time::Duration::from_secs(5));
-        println!("Switching to callback 2");
+        println!("Switching to callback 2 and doubling the bpm");
         metronome.set_callback(callback_2).unwrap();
+        metronome.set_bpm(metronome.get_bpm() * 2.0).unwrap();
         std::thread::sleep(std::time::Duration::from_secs(5));
 
     }
