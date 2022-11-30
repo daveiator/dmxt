@@ -1,6 +1,8 @@
 
 use std::u8;
 
+use crate::builders::fixture::FixtureName;
+
 use serde::{Serialize, Deserialize};
 
 use crate::check_valid_channel;
@@ -118,7 +120,10 @@ pub enum Color {
     Yellow,
     White,
     Black,
-    Custom(String, (u8, u8, u8)),
+    CustomRGB(String, (u8, u8, u8)),
+    Custom(FixtureName),
     UV,
+    ColorChange,
     Auto,
+    All,
 }

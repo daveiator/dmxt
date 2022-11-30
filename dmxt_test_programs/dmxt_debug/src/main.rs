@@ -11,7 +11,7 @@ use dmxt_lib::error::{DMXError, DMXErrorValidity};
 fn main() {
     let options = eframe::NativeOptions::default();
     eframe::run_native(
-        "DXM-Debugger",
+        "DMX-Debugger",
         options,
         Box::new(|_cc| Box::new(MyApp::default())),
     );
