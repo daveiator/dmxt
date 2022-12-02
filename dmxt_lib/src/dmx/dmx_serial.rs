@@ -81,6 +81,10 @@ impl DMXSerial {
         Ok(())
     }
 
+    pub fn set_channels(&mut self, channels: [u8; DMX_CHANNELS]) {
+        *self.channels.write().unwrap() = channels;
+    }
+
     pub fn get_channel(&self, channel: usize) -> Result<u8, DMXError> {
         check_valid_channel(channel)?;
         let channels = self.channels.read().unwrap();
@@ -96,7 +100,7 @@ impl DMXSerial {
     }
 }
 
-struct DMXSerialAgent {
+pub struct DMXSerialAgent {
     port: serial::SystemPort,
 }
 

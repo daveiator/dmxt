@@ -5,6 +5,8 @@ use crate::builders::fixture::FixtureName;
 
 use serde::{Serialize, Deserialize};
 
+use derive_more::{Add, Sub, From, Into};
+
 use crate::check_valid_channel;
 use crate::error::DMXError;
 
@@ -86,7 +88,7 @@ impl From<(u16, u8)> for DMXAddress {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Add, Sub, From, Into, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Channel{
     id: u16
 }
@@ -95,18 +97,6 @@ impl Channel {
     pub fn new(channel: u16) -> Result<Channel, DMXError> {
         check_valid_channel(channel.into())?;
         Ok(Channel { id: channel })
-    }
-}
-
-impl From<Channel> for u16 {
-    fn from(channel: Channel) -> Self {
-        channel.id
-    }
-}
-
-impl From<u16> for Channel {
-    fn from(channel: u16) -> Self {
-        Channel { id: channel }
     }
 }
 
@@ -126,4 +116,8 @@ pub enum Color {
     ColorChange,
     Auto,
     All,
+}
+
+pub trait DMXDevice {
+    fn write_channels(&mut self, channels: &mut [u8]) -> Result<(), DMXError>;
 }

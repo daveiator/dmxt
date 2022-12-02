@@ -1,9 +1,11 @@
 [package]
-name = "dmxt_ui"
+name = "dmxt_standalone"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+dmxt_lib = { path = "../../dmxt_lib" }
+dmxt_ui = { path = "../../dmxt_ui" }
 eframe = "0.19.0"

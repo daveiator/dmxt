@@ -4,6 +4,7 @@ pub mod error;
 pub mod timing;
 pub mod builders;
 pub mod macros;
+pub mod components;
 
 
 pub fn check_valid_channel(channel: usize) -> Result<(), error::DMXError> {

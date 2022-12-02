@@ -7,4 +7,6 @@ members = [
     "dmxt_test_programs/dmxt_debug",
     "dmxt_test_programs/metronome",
     "dmxt_test_programs/dmxt_fixture_creator",
+    "dmxt_test_programs/dmxt_standalone",
+    "dmxt_test_programs/strobo_test",
 ]

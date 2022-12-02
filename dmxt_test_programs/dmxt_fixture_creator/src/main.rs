@@ -1,5 +1,6 @@
 use std::path::Path;
 use std::vec;
+use std::fs;
 
 use dmxt_lib::builders::fixture::{FixtureModel, FixtureChannelMode, FixtureMovement, OperationModeType, self, FixtureCustomOperation, FixtureMatrix};
 use dmxt_lib::dmx::Color;
@@ -382,4 +383,7 @@ fn main() {
     let _lightbar_json = serde_json::to_string_pretty(&_lightbar).unwrap();
     println!("{:?}", _lightbar);
     println!("{}", _lightbar_json);
+    //save to file
+    serde_json::to_writer_pretty(fs::File::create("laser.json").unwrap(), &_laser).unwrap();
+    serde_json::to_writer_pretty(fs::File::create("lightbar.json").unwrap(), &_lightbar).unwrap();
 }
