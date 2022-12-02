@@ -1,4 +1,4 @@
-use crate::threads::shared::Lock;
+use crate::threads::shared::{Lock, ReadOnly};
 use crate::check_valid_channel;
 use crate::error::DMXError;
 use crate::dmx::DMX_CHANNELS;
@@ -35,10 +35,6 @@ const DMX_SETTINGS: serial::PortSettings = serial::PortSettings {
 // Sleep duration between sending the break and the data
 const TIME_BREAK_TO_DATA: time::Duration = time::Duration::new(0, 136_000);
 
-// Minimum time between break and break
-const MIN_TIME_BREAK_TO_BREAK: time::Duration = time::Duration::from_micros(40_000);
-
-
 /// A Serial DMX-Interface which writes to the Serial-Port independently from the main thread. 
 #[derive(Debug)]
 pub struct DMXSerial {
@@ -51,6 +47,8 @@ pub struct DMXSerial {
     // Mode
     is_sync: Lock<bool>,
 
+    min_time_break_to_break: Lock<time::Duration>,
+
 }
 
 impl DMXSerial {
@@ -60,9 +58,15 @@ impl DMXSerial {
         let (handler, agent_rec) = mpsc::sync_channel(0);
         let (agent, handler_rec) = mpsc::channel();
 
-        let dmx = DMXSerial { channels: Lock::new([0; DMX_CHANNELS]), agent, agent_rec, is_sync: Lock::new(false)}; // channel default created here!
+        // channel default created here!
+        let dmx = DMXSerial {
+            channels: Lock::new([0; DMX_CHANNELS]),
+            agent,
+            agent_rec,
+            is_sync: Lock::new(false),
+            min_time_break_to_break: Lock::new(time::Duration::from_micros(22_700))};
 
-        let mut agent = DMXSerialAgent::init(port)?;
+        let mut agent = DMXSerialAgent::init(port, dmx.min_time_break_to_break.read_only())?;
         let channel_view = dmx.channels.read_only();
         let is_sync_view = dmx.is_sync.read_only();
         let _ = thread::spawn(move || {
@@ -146,18 +150,28 @@ impl DMXSerial {
         !self.is_sync()
     }
 
+    pub fn set_packet_time(&mut self, time: time::Duration) {
+        self.min_time_break_to_break.write().unwrap().clone_from(&time);
+    }
+
+    pub fn get_packet_time(&self) -> time::Duration {
+        self.min_time_break_to_break.read().unwrap().clone()
+    }
+
 }
 
 pub struct DMXSerialAgent {
     port: serial::SystemPort,
+    min_b2b: ReadOnly<time::Duration>,
 }
 
 impl DMXSerialAgent {
 
-    pub fn init<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerialAgent, serial::Error> {
+    pub fn init<T: AsRef<OsStr> + ?Sized>(port: &T, min_b2b: ReadOnly<time::Duration>) -> Result<DMXSerialAgent, serial::Error> {
         let port = serial::SystemPort::open(port)?;
         let dmx = DMXSerialAgent {
-            port: port,
+            port,
+            min_b2b,
         };
         Ok(dmx)
     }
@@ -184,7 +198,7 @@ impl DMXSerialAgent {
         #[cfg(not(profile = "release"))]
         print!("\rTime: {:?} ", start.elapsed());
 
-        thread::sleep(MIN_TIME_BREAK_TO_BREAK.saturating_sub(start.elapsed()));
+        thread::sleep(self.min_b2b.read().unwrap().saturating_sub(start.elapsed()));
 
         #[cfg(not(profile = "release"))]
         print!("Time to send: {:?}", start.elapsed());
