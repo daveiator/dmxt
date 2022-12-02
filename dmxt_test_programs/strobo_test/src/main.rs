@@ -23,7 +23,8 @@ impl eframe::App for StrobeApp {
             ui.vertical(|ui|{
                 ui.heading("Strobe");
                 ui.horizontal(|ui| {
-                    if ui.button("   0   ").on_hover_text("Strobe off").clicked() { self.strobe = StrobeTime::Off; }
+                    ui.style_mut().spacing.button_padding = egui::vec2(40.0, 20.0);
+                    if ui.button("   0   ").on_hover_text("Strobe off").hovered() { self.strobe = StrobeTime::Off; }
                     if ui.button("   1   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Time(std::time::Duration::from_millis(100)); }
                     if ui.button("   2   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Time(std::time::Duration::from_millis(50)); }
                     if ui.button("   3   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Time(std::time::Duration::from_millis(0)); }
@@ -68,7 +69,7 @@ enum StrobeTime {
 
 fn main() {
     let mut options = eframe::NativeOptions::default();
-    options.initial_window_size = Some(egui::Vec2::new(200.0, 100.0));
+    options.initial_window_size = Some(egui::Vec2::new(500.0, 150.0));
     options.initial_window_pos = Some(egui::Pos2::new(960.0 - 100.0, 540.0-50.0-200.0));
     let app = StrobeApp::new();
     eframe::run_native(
