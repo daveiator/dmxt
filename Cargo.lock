@@ -1603,6 +1603,7 @@ name = "strobo_test"
 version = "0.1.0"
 dependencies = [
  "dmxt_lib",
+ "eframe",
 ]
 
 [[package]]

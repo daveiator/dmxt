@@ -45,32 +45,50 @@ pub struct DMXSerial {
     // Array of DMX-Values which are written to the Serial-Port
     channels: Lock<[u8; DMX_CHANNELS]>,
     // Connection to the Agent-Thread, if this is dropped the Agent-Thread will stop
-    _tx: mpsc::Sender<()>,
+    agent: mpsc::Sender<()>,
+    agent_rec: mpsc::Receiver<()>,
+
+    // Mode
+    is_sync: Lock<bool>,
 
 }
 
 impl DMXSerial {
     /// Opens a new DMX-Interface on the given Serial-Port path. Returns an error if the port could not be opened.
     pub fn open<T: AsRef<OsStr> + ?Sized>(port: &T) -> Result<DMXSerial, serial::Error> {
-        let (_tx, rx) = mpsc::channel();
-        let dmx = DMXSerial { channels: Lock::new([0; DMX_CHANNELS]), _tx}; // channel default created here!
+
+        let (handler, agent_rec) = mpsc::sync_channel(0);
+        let (agent, handler_rec) = mpsc::channel();
+
+        let dmx = DMXSerial { channels: Lock::new([0; DMX_CHANNELS]), agent, agent_rec, is_sync: Lock::new(false)}; // channel default created here!
+
         let mut agent = DMXSerialAgent::init(port)?;
         let channel_view = dmx.channels.read_only();
+        let is_sync_view = dmx.is_sync.read_only();
         let _ = thread::spawn(move || {
                 thread_priority::set_current_thread_priority(thread_priority::ThreadPriority::Max).unwrap_or_else(|e| {
                     eprintln!("Failed to set thread priority: \"{:?}\". Continuing anyways...", e)
                 });
                 loop {
-                    match rx.try_recv() {
-                        Err(mpsc::TryRecvError::Disconnected) => break,
-                        _ => {
-                            let channels = channel_view.read().unwrap().clone();
-                            // println!("{:?}", channels); //Debug
-                            agent.send_dmx_packet(channels).unwrap();
-                        }
+                    if is_sync_view.read().unwrap().clone() {
+                        handler_rec.recv().unwrap();
+                    }
+
+                    let channels = channel_view.read().unwrap().clone();
+
+                    agent.send_dmx_packet(channels).unwrap();
+                    match handler.try_send(()) {
+                        Err(mpsc::TrySendError::Disconnected(_)) => break,
+                        _ => {}
                     }
                 }
         });
+        Ok(dmx)
+    }
+
+    pub fn open_sync(port: &str) -> Result<DMXSerial, serial::Error> {
+        let mut dmx = DMXSerial::open(port)?;
+        dmx.set_sync();
         Ok(dmx)
     }
 
@@ -98,6 +116,36 @@ impl DMXSerial {
     pub fn reset_channels(&mut self) {
         self.channels.write().unwrap().fill(0);
     }
+
+    pub fn wait_for_update(&self) {
+        self.agent_rec.recv().unwrap();
+    }
+
+    pub fn update_async(&self) {
+        self.agent.send(()).unwrap();
+    }
+
+    pub fn update(&mut self) {
+        self.update_async();
+        self.wait_for_update();
+    }
+
+    pub fn set_sync(&mut self) {
+        *self.is_sync.write().unwrap() = true;
+    }
+
+    pub fn set_async(&mut self) {
+        *self.is_sync.write().unwrap() = false;
+    }
+
+    pub fn is_sync(&self) -> bool {
+        self.is_sync.read().unwrap().clone()
+    }
+
+    pub fn is_async(&self) -> bool {
+        !self.is_sync()
+    }
+
 }
 
 pub struct DMXSerialAgent {
@@ -124,25 +172,7 @@ impl DMXSerialAgent {
         self.port.write(data)?;
         Ok(())
     }
-
-    #[cfg(feature = "short_dmx")]
-    pub fn send_dmx_packet(&mut self, channels: [u8; DMX_CHANNELS]) -> serial::Result<()> {
-        let start = time::Instant::now();
-        self.send_break()?;
-        thread::sleep(TIME_BREAK_TO_DATA);
-        let last_not_zero = channels.iter().rposition(|&x| x != 0).unwrap_or(0);
-        let mut prefixed_data = [0; 513];// 1 start byte + 512 channels
-        prefixed_data[1..].copy_from_slice(&channels);
-        self.send_data(&prefixed_data[..last_not_zero])?;
-        #[cfg(profile = "dev")]
-        print!("\rTime: {:?} ", start.elapsed());
-        thread::sleep(MIN_TIME_BREAK_TO_BREAK.saturating_sub(start.elapsed()));
-        #[cfg(profile = "dev")]
-        print!("Time to send: {:?}", start.elapsed());
-        Ok(())
-    }
-
-    #[cfg(not(feature = "short_dmx"))]
+    
     pub fn send_dmx_packet(&mut self, channels: [u8; DMX_CHANNELS]) -> serial::Result<()> {
         let start = time::Instant::now();
         self.send_break()?;
@@ -151,12 +181,12 @@ impl DMXSerialAgent {
         prefixed_data[1..].copy_from_slice(&channels);
         self.send_data(&prefixed_data)?;
 
-        #[cfg(profile = "dev")]
+        #[cfg(not(profile = "release"))]
         print!("\rTime: {:?} ", start.elapsed());
 
         thread::sleep(MIN_TIME_BREAK_TO_BREAK.saturating_sub(start.elapsed()));
 
-        #[cfg(profile = "dev")]
+        #[cfg(not(profile = "release"))]
         print!("Time to send: {:?}", start.elapsed());
 
         Ok(())
