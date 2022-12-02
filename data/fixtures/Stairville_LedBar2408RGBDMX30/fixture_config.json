@@ -1,0 +1,794 @@
+{
+  "name": {
+    "name": "Led Bar 240/8 RGB DMX 30°",
+    "icon": "led_bar_240_8_rgb_dmx_30.png"
+  },
+  "manufacturer": "Stairville",
+  "channel_modes": [
+    {
+      "total_channels": {
+        "id": 2
+      },
+      "operation_modes": [
+        {
+          "mode_type": "Off",
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 0
+          },
+          "submodes": []
+        },
+        {
+          "mode_type": {
+            "DMX": {
+              "name": "Constant unicolored pattern",
+              "icon": null
+            }
+          },
+          "address": null,
+          "submodes": []
+        },
+        {
+          "mode_type": "Auto",
+          "address": null,
+          "submodes": [
+            {
+              "Stepped": [
+                {
+                  "name": "Shows",
+                  "icon": null
+                },
+                [
+                  [
+                    {
+                      "name": "Color pulse",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 64
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 72
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color rev",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 80
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color instant",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 88
+                    }
+                  ],
+                  [
+                    {
+                      "name": "RGB side to side one way",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 96
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color instant split",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 104
+                    }
+                  ],
+                  [
+                    {
+                      "name": "White chaser",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 112
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color side to side one way",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 120
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color side to side ping pong",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 128
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color fade side to side one way",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 136
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color fade side to side ping pong",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 144
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color to center",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 152
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color from center",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 160
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Rainbow side to side one way",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 168
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Rainbow stacker side to side",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 176
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color stacker side to side",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 184
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Color to center ping pong",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 192
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Rainbow to center ping pong",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 200
+                    }
+                  ],
+                  [
+                    {
+                      "name": "RGB side to side ping pong multiple chasers",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 208
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Yellow on red side to side one way",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 216
+                    }
+                  ],
+                  [
+                    {
+                      "name": "Yellow on red side to side ping pong",
+                      "icon": null
+                    },
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 224
+                    }
+                  ]
+                ]
+              ]
+            },
+            {
+              "Slider": [
+                {
+                  "name": "Speed",
+                  "icon": null
+                },
+                {
+                  "start": {
+                    "channel": {
+                      "id": 2
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 2
+                    },
+                    "value": 255
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "mode_type": "SoundToLight",
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 232
+          },
+          "submodes": [
+            {
+              "Slider": [
+                {
+                  "name": "Microphone Sensitivity",
+                  "icon": null
+                },
+                {
+                  "start": {
+                    "channel": {
+                      "id": 2
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 2
+                    },
+                    "value": 255
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "movement": null,
+      "lights": {
+        "matrix": [
+          [
+            {
+              "color_mode": {
+                "Presets": [
+                  [
+                    "Black",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 0
+                    }
+                  ],
+                  [
+                    "Red",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 8
+                    }
+                  ],
+                  [
+                    "Yellow",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 16
+                    }
+                  ],
+                  [
+                    "Blue",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 24
+                    }
+                  ],
+                  [
+                    "Cyan",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 32
+                    }
+                  ],
+                  [
+                    "Blue",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 40
+                    }
+                  ],
+                  [
+                    "Magenta",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 48
+                    }
+                  ],
+                  [
+                    "White",
+                    {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 56
+                    }
+                  ]
+                ]
+              },
+              "dimmer": null
+            }
+          ]
+        ]
+      },
+      "name": {
+        "name": "2 Channel Mode",
+        "icon": null
+      },
+      "zoom": null,
+      "custom": null
+    },
+    {
+      "total_channels": {
+        "id": 3
+      },
+      "operation_modes": [],
+      "movement": null,
+      "lights": {
+        "matrix": [
+          [
+            {
+              "color_mode": {
+                "RGB": [
+                  {
+                    "start": {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 0
+                    },
+                    "end": {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 255
+                    }
+                  },
+                  {
+                    "start": {
+                      "channel": {
+                        "id": 2
+                      },
+                      "value": 0
+                    },
+                    "end": {
+                      "channel": {
+                        "id": 2
+                      },
+                      "value": 255
+                    }
+                  },
+                  {
+                    "start": {
+                      "channel": {
+                        "id": 3
+                      },
+                      "value": 0
+                    },
+                    "end": {
+                      "channel": {
+                        "id": 3
+                      },
+                      "value": 255
+                    }
+                  }
+                ]
+              },
+              "dimmer": null
+            }
+          ]
+        ]
+      },
+      "name": {
+        "name": "3 Channel Mode",
+        "icon": null
+      },
+      "zoom": null,
+      "custom": null
+    },
+    {
+      "total_channels": {
+        "id": 5
+      },
+      "operation_modes": [],
+      "movement": null,
+      "lights": {
+        "matrix": [
+          [
+            {
+              "color_mode": {
+                "RGB": [
+                  {
+                    "start": {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 0
+                    },
+                    "end": {
+                      "channel": {
+                        "id": 1
+                      },
+                      "value": 255
+                    }
+                  },
+                  {
+                    "start": {
+                      "channel": {
+                        "id": 2
+                      },
+                      "value": 0
+                    },
+                    "end": {
+                      "channel": {
+                        "id": 2
+                      },
+                      "value": 255
+                    }
+                  },
+                  {
+                    "start": {
+                      "channel": {
+                        "id": 3
+                      },
+                      "value": 0
+                    },
+                    "end": {
+                      "channel": {
+                        "id": 3
+                      },
+                      "value": 255
+                    }
+                  }
+                ]
+              },
+              "dimmer": {
+                "start": {
+                  "channel": {
+                    "id": 4
+                  },
+                  "value": 0
+                },
+                "end": {
+                  "channel": {
+                    "id": 4
+                  },
+                  "value": 255
+                }
+              }
+            }
+          ]
+        ]
+      },
+      "name": {
+        "name": "5 Channel Mode",
+        "icon": null
+      },
+      "zoom": null,
+      "custom": [
+        {
+          "Slider": [
+            {
+              "name": "Strobe",
+              "icon": null
+            },
+            {
+              "start": {
+                "channel": {
+                  "id": 5
+                },
+                "value": 0
+              },
+              "end": {
+                "channel": {
+                  "id": 5
+                },
+                "value": 255
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_channels": {
+        "id": 24
+      },
+      "operation_modes": [],
+      "movement": null,
+      "lights": {
+        "matrix": [
+          [
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 1
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 1
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 4
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 4
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 7
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 7
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 10
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 10
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 13
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 13
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 16
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 16
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 19
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 19
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            },
+            {
+              "color_mode": {
+                "RgbTrailingChannels": {
+                  "start": {
+                    "channel": {
+                      "id": 22
+                    },
+                    "value": 0
+                  },
+                  "end": {
+                    "channel": {
+                      "id": 22
+                    },
+                    "value": 255
+                  }
+                }
+              },
+              "dimmer": null
+            }
+          ]
+        ]
+      },
+      "name": {
+        "name": "24 Channel Mode",
+        "icon": null
+      },
+      "zoom": null,
+      "custom": null
+    }
+  ]
+}

@@ -1,0 +1,3312 @@
+{
+  "name": {
+    "name": "EL-230RGB",
+    "icon": "laserworld_el-230rgb.png"
+  },
+  "manufacturer": "Laserworld",
+  "channel_modes": [
+    {
+      "total_channels": {
+        "id": 9
+      },
+      "operation_modes": [
+        {
+          "mode_type": "Off",
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 0
+          },
+          "submodes": []
+        },
+        {
+          "mode_type": "SoundToLight",
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 50
+          },
+          "submodes": []
+        },
+        {
+          "mode_type": "Auto",
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 100
+          },
+          "submodes": []
+        },
+        {
+          "mode_type": {
+            "DMX": {
+              "name": "Static pattern",
+              "icon": null
+            }
+          },
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 150
+          },
+          "submodes": [
+            {
+              "Button": [
+                {
+                  "name": "Circle",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle incomplete",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Octagon",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "3xV Circle",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 20
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "3xV Circle spread small",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 25
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "4x Circle",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 30
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2x Circle incomplete horizontal",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 35
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2x Circle dotted horizonal",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 40
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line horizontal growing",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 45
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line horizontal shrinking",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line horizontal ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 55
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line horizontal color shift",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 60
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line horizontal dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 65
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line vertical",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 70
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line vertical dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 75
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line diagonal",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 80
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line diagonal dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 85
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2x Line horizontal",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 90
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2x Line horizontal dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 95
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2x Line vertical",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2x Line vertical dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 105
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "/\\",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 110
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "/\\ dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 115
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 125
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle inverted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 130
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle inverted dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 135
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "X",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 140
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "X dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 145
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Square",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Square dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 155
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 160
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 165
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Stepped diagonal",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 170
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Stepped /\\",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 175
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "4 Star",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 180
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "4 Star diagonal",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 185
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "5 Star",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 190
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "5 Star inverted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 195
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Pentagon",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 200
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle wave",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 205
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle wave color cycle",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 210
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Sine wave color pulse",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 215
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Triangle wave color cycle dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 220
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Spiral",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 225
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "mode_type": {
+            "DMX": {
+              "name": "Dynamic pattern",
+              "icon": null
+            }
+          },
+          "address": {
+            "channel": {
+              "id": 1
+            },
+            "value": 200
+          },
+          "submodes": [
+            {
+              "Button": [
+                {
+                  "name": "Circle growing",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle growing incomplete",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle growing dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Spiral growing + Cicle growing",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle moving horizontally",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 20
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle incomplete moving horizontally",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 25
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle dotted moving horizontally",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 30
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle spinning",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 35
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle filling lines",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 40
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Random Circles",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 45
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Spiral ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Random Circles ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 55
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Circle incomplete chasing",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 60
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2 Circles spinning against each other",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 65
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "3 Circles chasing",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 70
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Random Diagonals",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 75
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Lines horizontal scanning up stepped",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 80
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Lines dotted horizontal scanning up stepped",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 85
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Lines diagonal scanning down",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 90
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Lines dotted diagonal scanning down",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 95
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line spinning",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 100
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Clock hand spinning",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 105
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "3x Clock hand spinning",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 110
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line horizontal scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 115
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line dotted horizontal scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2 Lines horizontal scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 125
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2 Lines dotted horizontal scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 130
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line vertical scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 135
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Line dotted vertical scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 140
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2 Lines vertical scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 145
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "2 Lines dotted vertical scanning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle growing",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 155
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle growing dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 160
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle growing width",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 165
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle spinning solid / dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 170
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle wide spinning",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 175
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle chase outline",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 180
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Rectangle chase outline dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 185
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Wave spinning ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 190
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Wave spinning ping pong dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 195
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Random horizontal waves",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 200
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Random horizontal waves dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 205
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Wave amplitude ping pong",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 210
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Wave amplitude ping pong dotted",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 215
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "5 Star chasing ccw",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 220
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "5 Star chasing cw",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 225
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Pentagon chasing filling lines",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 230
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Bird",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 235
+                }
+              ]
+            },
+            {
+              "Button": [
+                {
+                  "name": "Random Vs",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 2
+                  },
+                  "value": 240
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "movement": {
+        "pan": {
+          "range": {
+            "start": {
+              "channel": {
+                "id": 3
+              },
+              "value": 11
+            },
+            "end": {
+              "channel": {
+                "id": 3
+              },
+              "value": 255
+            }
+          },
+          "reset": {
+            "channel": {
+              "id": 3
+            },
+            "value": 0
+          }
+        },
+        "tilt": {
+          "range": {
+            "start": {
+              "channel": {
+                "id": 4
+              },
+              "value": 11
+            },
+            "end": {
+              "channel": {
+                "id": 4
+              },
+              "value": 255
+            }
+          },
+          "reset": {
+            "channel": {
+              "id": 4
+            },
+            "value": 0
+          }
+        }
+      },
+      "lights": {
+        "matrix": [
+          [
+            {
+              "color_mode": {
+                "Presets": [
+                  [
+                    "ColorChange",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 0
+                    }
+                  ],
+                  [
+                    "White",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 2
+                    }
+                  ],
+                  [
+                    "Magenta",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 4
+                    }
+                  ],
+                  [
+                    "Cyan",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 6
+                    }
+                  ],
+                  [
+                    "Yellow",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 8
+                    }
+                  ],
+                  [
+                    "Blue",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 10
+                    }
+                  ],
+                  [
+                    "Red",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 12
+                    }
+                  ],
+                  [
+                    "Green",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 14
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 16
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 18
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 20
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 22
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 24
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 26
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 28
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 30
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 32
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 34
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 36
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 38
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 40
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 42
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 44
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 46
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 48
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 50
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 52
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 54
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 56
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 58
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 60
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 62
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 64
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 66
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 68
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 70
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 72
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 74
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 76
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 78
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 80
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 82
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Cyan / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 84
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Cyan / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 86
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 88
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 90
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 92
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Yellow / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 94
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Yellow / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 96
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 98
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 100
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 102
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Blue / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 104
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Blue / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 106
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 108
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 110
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 112
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Red / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 114
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Red / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 116
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 118
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 120
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Green / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 122
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Green / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 124
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Green / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 126
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / White / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 128
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / White / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 130
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / White / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 132
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / Magenta / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 134
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Magenta / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 136
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 138
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Magenta / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 140
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Magenta / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 142
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Cyan / Magenta / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 144
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Cyan / Magenta / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 146
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 148
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 150
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Yellow / Cyan / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 152
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Yellow / Cyan / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 154
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Yellow / Cyan / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 156
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Yellow / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 158
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Yellow / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 160
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Yellow / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 162
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Blue / Yellow / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 164
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Blue / Yellow / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 166
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Blue / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 168
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Blue / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 170
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Blue / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 172
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Red / Blue / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 174
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Red / Blue / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 176
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Red / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 178
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Red / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 180
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Red / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 182
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Green / Red / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 184
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Green / Red / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 186
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Green / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 188
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Green / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 190
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / White / Green / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 192
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Magenta / Green / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 194
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / White / Green / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 196
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Magenta / White / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 198
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Magenta / White / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 200
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Cyan / Magenta / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 202
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Magenta / Red / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 204
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / Magenta / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 206
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Cyan / Magenta / Green / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 208
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / Green / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 210
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / White / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 212
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Cyan / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 214
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / White / Green / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 216
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Magenta / Green / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 218
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Yellow / Magenta / White / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 220
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Magenta / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 222
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Cyan / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 224
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Blue / Cyan / Magenta / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 226
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Cyan / Magenta / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 228
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Yellow / Magenta / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 230
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Red / Yellow / Cyan / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 232
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Blue / Cyan / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 234
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Green / Blue / Yellow / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 236
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Green / Red / Yellow / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 238
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "White / Red / Blue / Yellow / Cyan",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 240
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Magenta / Green / Red / Blue / Yellow",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 242
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Cyan / White / Green / Red / Blue",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 244
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Yellow / Magenta / White / Green / Red",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 246
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Blue / Cyan / Magenta / White / Green",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 248
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Red / Yellow / Cyan / Magenta / White",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 250
+                    }
+                  ],
+                  [
+                    {
+                      "Custom": {
+                        "name": "Green / Blue / Yellow / Cyan / Magenta",
+                        "icon": null
+                      }
+                    },
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 252
+                    }
+                  ],
+                  [
+                    "All",
+                    {
+                      "channel": {
+                        "id": 8
+                      },
+                      "value": 254
+                    }
+                  ]
+                ]
+              },
+              "dimmer": null
+            }
+          ]
+        ]
+      },
+      "name": null,
+      "zoom": {
+        "range": {
+          "start": {
+            "channel": {
+              "id": 7
+            },
+            "value": 0
+          },
+          "end": {
+            "channel": {
+              "id": 7
+            },
+            "value": 255
+          }
+        },
+        "reset": null
+      },
+      "custom": [
+        {
+          "Slider": [
+            {
+              "name": "Scanning speed",
+              "icon": null
+            },
+            {
+              "start": {
+                "channel": {
+                  "id": 5
+                },
+                "value": 255
+              },
+              "end": {
+                "channel": {
+                  "id": 5
+                },
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "Slider": [
+            {
+              "name": "Pattern speed",
+              "icon": null
+            },
+            {
+              "start": {
+                "channel": {
+                  "id": 6
+                },
+                "value": 255
+              },
+              "end": {
+                "channel": {
+                  "id": 6
+                },
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "Stepped": [
+            {
+              "name": "Color Segments",
+              "icon": null
+            },
+            [
+              [
+                {
+                  "name": "One",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 9
+                  },
+                  "value": 0
+                }
+              ],
+              [
+                {
+                  "name": "Two",
+                  "icon": null
+                },
+                {
+                  "channel": {
+                    "id": 9
+                  },
+                  "value": 20
+                }
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
