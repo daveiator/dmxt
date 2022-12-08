@@ -436,6 +436,7 @@ version = "0.1.0"
 dependencies = [
  "dmxt_lib",
  "eframe",
+ "open_dmx",
 ]
 
 [[package]]
@@ -459,9 +460,9 @@ version = "0.1.0"
 dependencies = [
  "derive_more",
  "num-traits",
+ "open_dmx",
  "serde",
  "serde_json",
- "serial",
  "thread-priority",
 ]
 
@@ -1225,6 +1226,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "86f0b0d4bf799edbc74508c1e8bf170ff5f41238e5f8225603ca7caaae2b7860"
 
 [[package]]
+name = "open_dmx"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1b7d69a67575aa7d771a0e37c7267b59e2c97452fcc950ba4479efa838f6cd03"
+dependencies = [
+ "serial",
+ "thread-priority",
+]
+
+[[package]]
 name = "os_str_bytes"
 version = "6.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1604,6 +1615,7 @@ version = "0.1.0"
 dependencies = [
  "dmxt_lib",
  "eframe",
+ "open_dmx",
 ]
 
 [[package]]

@@ -1,7 +1,7 @@
 
 use crate::builders::fixture::FixtureModel;
 use crate::dmx::{DMXAddress, DMXDevice};
-use crate::error::DMXError;
+use open_dmx::error::DMXError;
 use crate::{address};
 
 pub struct Fixture {

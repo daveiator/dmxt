@@ -2,10 +2,10 @@
 
 use eframe::egui;
 
-use dmxt_lib::check_valid_channel;
-use dmxt_lib::dmx::DMX_CHANNELS;
-use dmxt_lib::dmx::serial::DMXSerial;
-use dmxt_lib::error::{DMXError, DMXErrorValidity};
+use open_dmx::check_valid_channel;
+use open_dmx::DMX_CHANNELS;
+use open_dmx::DMXSerial;
+use open_dmx::error::{DMXError, DMXErrorValidity};
 
 
 fn main() {
