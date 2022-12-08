@@ -7,8 +7,8 @@ use serde::{Serialize, Deserialize};
 
 use derive_more::{Add, Sub, From, Into};
 
-use crate::check_valid_channel;
-use crate::error::DMXError;
+use open_dmx::check_valid_channel;
+use open_dmx::error::DMXError;
 
 pub const DMX_CHANNELS: usize = 512;
 

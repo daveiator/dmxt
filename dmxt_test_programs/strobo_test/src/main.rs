@@ -1,4 +1,4 @@
-use dmxt_lib::dmx::serial::DMXSerial;
+use open_dmx::DMXSerial;
 use eframe::egui;
 use std::thread;
 

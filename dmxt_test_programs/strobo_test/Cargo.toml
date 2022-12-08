@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 dmxt_lib = { path = "../../dmxt_lib"}
+open_dmx = "0.1"
 eframe = "0.19"
