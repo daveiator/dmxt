@@ -1,11 +1,13 @@
 use eframe::{self, egui, App};
 use dmxt_ui::pages::*;
+use dmxt_ui::windows::about_window::about_window;
 
 
 #[derive(Debug, Default)]
 struct  DMXTApp {
     open_page: Page,
     file: String,
+    about_window: bool,
     // universes: Vec<Universe>,
     // interfaces: Vec<Interface>,
     
@@ -17,13 +19,21 @@ struct  DMXTApp {
 
 impl App for DMXTApp {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+        if self.about_window {
+            if !about_window(ctx).hovered() && ctx.input().pointer.any_pressed() {
+                self.about_window = false;
+            };
+        }
+
         egui::TopBottomPanel::top("wrap_app_top_bar").show(ctx, |ui| {
             egui::trace!(ui); 
             egui::menu::bar(ui, |ui| {
                 ui.vertical(|ui| {
                     ui.horizontal(|ui| {
                         ui.menu_button("⚡", |ui| {
-                            ui.button("About");
+                            if ui.button("About").clicked() {
+                                self.about_window = true;
+                            };
                             ui.button("❤️ Donate");
                             ui.separator();
                             if ui.button("Quit").clicked() {
