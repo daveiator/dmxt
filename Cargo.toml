@@ -1,7 +1,7 @@
 [workspace]
 members = [
     "dmxt_lib",
-    "dmxt_kernel",
+    "dmxt",
     "dmxt_ui",
     # dmxt test programs:
     "dmxt_test_programs/dmxt_debug",
