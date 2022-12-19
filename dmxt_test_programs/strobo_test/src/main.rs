@@ -1,24 +1,62 @@
 use open_dmx::DMXSerial;
 use eframe::egui;
-use std::thread;
+use std::{thread, sync::mpsc};
 
 struct StrobeApp {
-    dmx: DMXSerial,
     strobe: StrobeTime,
     intensity: u8,
+    tx: mpsc::SyncSender<(StrobeTime, u8)>,
 }
 
 impl StrobeApp {
     pub fn new() -> Self {
+
+        let (tx, rx) = mpsc::sync_channel(1);
+        let strobe = StrobeTime::Off;
+        let intensity =  255;
+
+        thread::spawn(move || {
+            let mut dmx = DMXSerial::open("COM4").unwrap();
+            let mut s = strobe;
+            let mut i = intensity;
+            loop {
+                if let Ok((strobe, intensity)) = rx.try_recv() {
+                    println!("Received: {:?}, {:?}", strobe, intensity);
+                    s = strobe;
+                    i = intensity;
+                }
+                match s {
+                    StrobeTime::Time(t) => {
+                        dmx.set_channels([i; 512]);
+                        dmx.update();
+                        thread::sleep(t);
+                        dmx.set_channels([0; 512]);
+                        dmx.update();
+                        thread::sleep(t);
+                    }
+                    StrobeTime::Instant => {
+                        dmx.set_channels([i; 512]);
+                        dmx.update();
+                        dmx.set_channels([0; 512]);
+                        dmx.update();
+                    }
+                    StrobeTime::Off => {
+                        dmx.set_channels([0; 512]);
+                        dmx.update();
+                    }
+                    
+                }
+            }
+        });
         Self {
-            dmx: DMXSerial::open("COM4").unwrap(),
             strobe: StrobeTime::Off,
             intensity: 255,
+            tx,
         }
     }
 }
 impl eframe::App for StrobeApp {
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical(|ui|{
                 ui.heading("Strobe");
@@ -27,39 +65,23 @@ impl eframe::App for StrobeApp {
                     if ui.button("   0   ").on_hover_text("Strobe off").hovered() { self.strobe = StrobeTime::Off; }
                     if ui.button("   1   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Time(std::time::Duration::from_millis(100)); }
                     if ui.button("   2   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Time(std::time::Duration::from_millis(50)); }
-                    if ui.button("   3   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Time(std::time::Duration::from_millis(0)); }
+                    if ui.button("   3   ").on_hover_text("Strobe Intensity").hovered() { self.strobe = StrobeTime::Instant; }
                 });
                 ui.separator();
                 ui.add(egui::Slider::new(&mut self.intensity, 0..=255));
             });
         });
-        ctx.request_repaint();
     }
 
     fn post_rendering(&mut self, _window_size_px: [u32; 2], _frame: &eframe::Frame) {
-        match self.strobe {
-            StrobeTime::Time(t) => {
-                self.dmx.set_channels([self.intensity; 512]);
-                self.dmx.update();
-                thread::sleep(t);
-                self.dmx.set_channels([0; 512]);
-                self.dmx.update();
-                thread::sleep(t);
-            }
-            StrobeTime::Instant => {
-                self.dmx.set_channels([self.intensity; 512]);
-                self.dmx.update();
-                self.dmx.set_channels([0; 512]);
-                self.dmx.update();
-            }
-            StrobeTime::Off => {
-                self.dmx.set_channels([0; 512]);
-            }
-            
+        if let Err(mpsc::TrySendError::Disconnected(_)) = self.tx.try_send((self.strobe, self.intensity)) {
+            panic!("DMX-Thread disconnected");
         }
+        println!("Updating DMX: {:?}, {:?}" , self.strobe, self.intensity);
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 enum StrobeTime {
     Off,
     Time(std::time::Duration),
