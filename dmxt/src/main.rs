@@ -6,7 +6,7 @@ use dmxt_ui::windows::about_window::about_window;
 #[derive(Debug, Default)]
 struct  DMXTApp {
     open_page: Page,
-    file: String,
+    // file: String,
     about_window: bool,
     // universes: Vec<Universe>,
     // interfaces: Vec<Interface>,
@@ -34,45 +34,47 @@ impl App for DMXTApp {
                             if ui.button("About").clicked() {
                                 self.about_window = true;
                             };
-                            ui.button("❤️ Donate");
+                            if ui.button("❤️ Donate").clicked() {
+                                let _ = open::that("https://github.com/sponsors/daveiator");
+                            };
                             ui.separator();
                             if ui.button("Quit").clicked() {
                                 frame.close();
                             }
                         });
                         ui.menu_button("File", |ui| {
-                            ui.button("New");
-                            ui.button("Open...");
-                            ui.menu_button("Open recent", |ui| {
-                                ui.button("File 1");
-                                ui.button("File 2");
-                                ui.button("File 3");
+                            let _ = ui.button("New");
+                            let _ = ui.button("Open...");
+                            let _ = ui.menu_button("Open recent", |ui| {
+                                let _ = ui.button("File 1");
+                                let _ = ui.button("File 2");
+                                let _ = ui.button("File 3");
                             });
-                            ui.button("Import Patch...");
-                            ui.button("Import Scenes...");
-                            ui.separator();
-                            ui.button("Check for missing files");
-                            ui.separator();
-                            ui.button("Save");
-                            ui.button("Save As...");
+                            let _ = ui.button("Import Patch...");
+                            let _ = ui.button("Import Scenes...");
+                            let _ = ui.separator();
+                            let _ = ui.button("Check for missing files");
+                            let _ = ui.separator();
+                            let _ = ui.button("Save");
+                            let _ = ui.button("Save As...");
                         });
                         ui.menu_button("Edit", |ui| {
-                            ui.button("Undo");
-                            ui.button("Redo");
-                            ui.separator();
-                            ui.button("Preferences");
+                            let _ = ui.button("Undo");
+                            let _ = ui.button("Redo");
+                            let _ = ui.separator();
+                            let _ = ui.button("Preferences");
                         });
                         ui.menu_button("Tools", |ui| {
-                            ui.button("Interface Manager");
-                            ui.button("DMX Monitor");
+                            let _ = ui.button("Interface Manager");
+                            let _ = ui.button("DMX Monitor");
                         });
                         ui.menu_button("Mappings" , |ui| {
-                            ui.button("Map Keyboard");
-                            ui.button("Map OSC");
+                            let _ = ui.button("Map Keyboard");
+                            let _ = ui.button("Map OSC");
                         });
                         ui.menu_button("Help", |ui| {
-                            ui.button("Help");
-                            ui.button("About");
+                            let _ = ui.button("Help");
+                            let _ = ui.button("About");
                         });
                     });
                     ui.add_space(20.0);
