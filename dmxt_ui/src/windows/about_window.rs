@@ -1,5 +1,3 @@
-use std::thread;
-
 use eframe::egui::{Context, Window, Vec2, Align2, Sense, Response};
 
 

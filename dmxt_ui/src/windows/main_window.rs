@@ -1,4 +1,4 @@
-use eframe::egui::{Context, Modifiers, ScrollArea, Ui};
+use eframe::egui::Context;
 use eframe::egui;
 use eframe::egui::Color32;
 
@@ -18,7 +18,7 @@ impl MainWindow {
             fill: Color32::from_rgb(27, 27, 27),
             ..Default::default()
         };
-        egui::CentralPanel::default().frame(my_frame).show(ctx, |ui| {});
+        egui::CentralPanel::default().frame(my_frame).show(ctx, |_ui| {});
 
 
         egui::SidePanel::left("groups")
@@ -55,7 +55,7 @@ impl MainWindow {
         });
         
         egui::TopBottomPanel::top("menu_bar").show(ctx, |ui| {
-            egui::menu::bar(ui, |ui| {
+            egui::menu::bar(ui, |_ui| {
             });
         });
         
